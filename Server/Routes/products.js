@@ -1,21 +1,44 @@
 const express = require("express");
 const router = express.Router();
+const shortid=require('shortid');
+const path =require('path');
+
 const {
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
 const Product = require("../models/Product");
+const controller=require('../Controller/product');
+const multer=require('multer');
 
-//CREATE
-router.post("/", verifyTokenAndAdmin, async (req, res) =>{
-    const newProduct=new Product(req.body);
-    try{
-      const savedProduct=await newProduct.save();
-      res.status(200).json(savedProduct)
-     }catch (err){
-      res.status(500).json(err);
-    }
-});
+
+const storage= multer.diskStorage({
+ 
+  destination:function(req,file,cb){
+  cb(null,"uploads")
+  },
+  filename:function(req,file,cb){
+    let ext= path.extname(file.originalname)
+  cb(null,shortid.generate()+'-'+file.originalname)
+  }
+}) 
+const upload=multer({storage:storage})
+
+//Add Product
+
+router.post("/create", verifyTokenAndAdmin,upload.array('productPictures'),controller.AddProduct);
+// router.post("/create", verifyTokenAndAdmin,upload.single('productPictures'),(req,res)=>{
+//   res.send('added')
+// });
+// router.post("/", verifyTokenAndAdmin, async (req, res) =>{
+//     const newProduct=new Product(req.body);
+//     try{
+//       const savedProduct=await newProduct.save();
+//       res.status(200).json(savedProduct)
+//      }catch (err){
+//       res.status(500).json(err);
+//     }
+// });
 
 //UPDATE
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {

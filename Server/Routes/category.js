@@ -8,12 +8,13 @@ const {
   } = require("./verifyToken");
 
 //Creat Category
-router.post("/create",verifyTokenAndAdmin,controller.Create);
+router.post("/create",verifyTokenAndAdmin,controller.CreateCategory);
 
-// //REGISTER USER
-// router.post("/find",controller.UserRegistration);
+//All Category
+router.get("/find",verifyTokenAndAdmin,controller.GetAllCategory);
 
-// //LOGIN USER
+// Delete CAtegory
+router.post("/:id",verifyTokenAndAdmin,controller.DeleteCategory);
 
 // router.get("/delete/:id", controller.UserLogin);
 
