@@ -24,9 +24,18 @@ const storage= multer.diskStorage({
 }) 
 const upload=multer({storage:storage})
 
-//Add Product
+//Products Category
 
 router.post("/create", verifyTokenAndAdmin,upload.array('productPictures'),controller.AddProduct);
+
+router.post("/update/:id", verifyTokenAndAuthorization,upload.array('productPictures'),controller.UpdateProduct )
+
+router.get("/find/:id",controller.GetOneProduct);
+
+router.post("delete/:id", verifyTokenAndAdmin,controller.DeleteProduct);
+
+router.get("/",controller.AllProduct);
+
 // router.post("/create", verifyTokenAndAdmin,upload.single('productPictures'),(req,res)=>{
 //   res.send('added')
 // });
@@ -40,68 +49,34 @@ router.post("/create", verifyTokenAndAdmin,upload.array('productPictures'),contr
 //     }
 // });
 
-//UPDATE
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
  
-  try {
-    const updateProdoct = await Product.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updateProdoct);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+
+  // });
+//UPDATE
+// router.post("/update/:id", verifyTokenAndAuthorization, async (req, res) => {
+ 
+//   try {
+//     const updateProdoct = await Product.findByIdAndUpdate(
+//       req.params.id,
+//       {
+//         $set: req.body,
+//       },
+//       { new: true }
+//     );
+//     res.status(200).json(updateProdoct);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 //DELETE
 
-router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    await Product.findByIdAndDelete(req.params.id);
-    res.status(200).json("Product has been deleted...");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
-//GET USER
-router.get("/find/:id",  async (req, res) => {
-  try {
-    const product = await Product.findById(req.params.id);
-    
-    res.status(200).json(product);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+
+
+
 
 //GET ALL USER
-router.get("/", async (req, res) =>{
-  const qNew=req.query.new;
-  const qCategory= req.query.category; 
-  try {
-    let products;
 
-    if (qNew) {
-      products = await Product.find().sort({ createdAt: -1 }).limit(1);
-    } else if (qCategory) {
-      products = await Product.find({
-        categories: {
-          $in: [qCategory],
-        },
-      });
-    } else {
-      products = await Product.find();
-    }
-
-    res.status(200).json(products);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 
 

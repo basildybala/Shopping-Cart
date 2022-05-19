@@ -6,19 +6,11 @@ const {
   verifyToken,
 } = require("./verifyToken");
 const Product = require("../models/Product");
+const controller=require('../Controller/cart')
 
 //CREATE
 
-router.post("/", verifyToken, async (req, res) => {
-    const newCart = new Cart(req.body);
-  
-    try {
-      const savedCart = await newCart.save();
-      res.status(200).json(savedCart);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
+router.post("/add-to-cart", verifyToken,controller.AddItemToCArt);
   
   //UPDATE
   router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
