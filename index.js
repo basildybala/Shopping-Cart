@@ -8,6 +8,7 @@ const cartRoutes=require('./Server/Routes/cart')
 const productRoutes=require('./Server/Routes/products')
 const authRoutes=require('./Server/Routes/auth')
 const categoryRoutes=require('./Server/Routes/category')
+const indexRoute=require('./Server/Routes/index')
 
 
 const app=express();
@@ -23,6 +24,11 @@ app.use(morgan('tiny'));
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
+// set view engine
+app.set("view engine", "ejs")
+//Public Folder Set Up
+app.use('/public', express.static('public'))
+
 //Route SetUp
 app.use('/api/users',userRoutes)
 app.use('/api/auth',authRoutes)
@@ -30,6 +36,7 @@ app.use('/api/products',productRoutes)
 app.use('/api/cart',cartRoutes)
 app.use('/api/orders',orderRoutes)
 app.use('/api/category',categoryRoutes)
+app.use('/',indexRoute)
 
 
 
