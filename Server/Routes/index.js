@@ -1,9 +1,10 @@
 const router=require('express').Router()
+const controller=require('../Controller/index')
 
 
-router.get('/',(req,res)=>{
-    res.render('index')
-})
+
+
+router.get('/',controller.AllProduct)
 
 
 module.exports=router;
