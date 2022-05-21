@@ -11,6 +11,8 @@ const controller=require('../Controller/cart')
 //CREATE
 
 router.post("/add-to-cart", verifyToken,controller.AddItemToCArt);
+
+router.get("/show", verifyToken,controller.showItemsCart);
   
   //UPDATE
   router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {

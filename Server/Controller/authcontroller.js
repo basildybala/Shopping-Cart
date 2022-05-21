@@ -14,6 +14,7 @@ exports.UserRegistration=async  (req,res)=>{
       });
       try {
         const savedUser = await newUser.save();
+        res.redirect('/api/auth/login')
         res.status(201).json(savedUser);
         console.log(savedUser);
       } catch (err) {
@@ -41,12 +42,25 @@ exports.UserLogin=async (req,res)=>{
             {expiresIn:"3d"}
         );
         const{password, ...others}=user._doc; 
-    
-        res.status(200).json({...others, accessToken});
+        res.status(200).redirect('/');
+        // res.status(200).json({...others, accessToken});
       } catch (err) {
         res.status(500).json(err);
       }
 }
-// exports.UserLogin=async (req,res)=>{
+exports.UserLoginPage=async (req,res)=>{
+  try{
+    res.render('login')
+  }catch(err){
+    console.log(err);
 
-// }
+  }
+}
+exports.UserRegistrationPage=async (req,res)=>{
+  try{
+    res.render('register')
+  }catch(err){
+    console.log(err);
+
+  }
+}

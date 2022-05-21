@@ -54,3 +54,11 @@ exports.AddItemToCArt=async (req,res)=>{
       res.status(500).json(err);
     }
 }
+
+exports.showItemsCart=async(req,res)=>{
+    try{
+        
+    }catch(err){
+
+    }
+}
