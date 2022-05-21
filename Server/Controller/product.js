@@ -57,8 +57,9 @@ exports.UpdateProduct=async (req,res)=>{
 }
 exports.GetOneProduct=async (req,res)=>{
     try {
+      console.log(req.params.id);
         const product = await Product.findById(req.params.id);
-        res.status(200).json(product);
+        res.render('product',{product});
       } catch (err) {
         res.status(500).json(err);
       }
