@@ -32,6 +32,7 @@ router.post("/update/:id", verifyTokenAndAuthorization,upload.array('productPict
 
 router.get("/find/:id",controller.GetOneProduct);
 
+
 router.post("delete/:id", verifyTokenAndAdmin,controller.DeleteProduct);
 
 router.get("/",controller.AllProduct);

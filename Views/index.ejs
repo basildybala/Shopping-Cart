@@ -22,7 +22,7 @@
         <div class="offer-text">
             <h6 class="text-white text-uppercase">Save 20%</h6>
             <h3 class="text-white mb-3">Special Offer</h3>
-            <a href="" class="btn btn-primary">Shop Now</a>
+            <a href="" class="btn btn-primary">Shop Now - <%= count %></a>
         </div>
     </div>
 </div>
@@ -62,12 +62,15 @@
             <div class="pro-img">
                 <img src="/public/images/<%= p.productPictures[0] %>" alt="" srcset="">
             </div>
+        </a>
+        <div class="pro">    
             <div class="pro-det">
                 <h1><%= p.title %></h1>
                 <h4><%= p.price %></h4>
-                <button class="btn btn-primary">Add To Cart</button>
+                <button onclick="addToCart('<%= p._id %>')" class="btn btn-primary">Add To Cart</button>
             </div>
-        </a>
+        </div>    
+        
         <% });%>
     </div>
 </div>
@@ -136,6 +139,19 @@
     </div>
 </div>
 <!-- Products End -->
+
+<script>
+    function addToCart(proId){
+        $.ajax({
+            url:'/api/cart/add-to-cart/'+proId,
+            method:'post',
+            
+            success:(response)=>{
+                alert(response)
+            }
+        })
+    }
+</script>
 
 
 

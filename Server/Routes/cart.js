@@ -10,9 +10,11 @@ const controller=require('../Controller/cart')
 
 //CREATE
 
-router.post("/add-to-cart", verifyToken,controller.AddItemToCArt);
+router.post("/add-to-cart/:id",controller.AddItemToCArt);
+// router.post("/add-to-cart", verifyToken,controller.AddItemToCArt);
 
-router.get("/show", verifyToken,controller.showItemsCart);
+router.get("/count",controller.CartCount);
+
   
   //UPDATE
   router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {

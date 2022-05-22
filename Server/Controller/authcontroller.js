@@ -23,31 +23,74 @@ exports.UserRegistration=async  (req,res)=>{
 }
 
 exports.UserLogin=async (req,res)=>{
-    try {
-        const user = await User.findOne({ username: req.body.username });
-        !user && res.status(401).json("Wrong credentials!");
-        const hashedPassword = CryptoJS.AES.decrypt(
-          user.password,
-          process.env.PASS_SEC
-        );
-        const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-        originalPassword !== req.body.password && res.status(401).json("Wrong credentials!");
-        //JWT ACCESS TOKEN
-        const accessToken=jwt.sign(
-            {
-              id: user._id,
-              isAdmin: user.isAdmin,
-            },
-            process.env.JWT_SEC,
-            {expiresIn:"3d"}
-        );
-        const{password, ...others}=user._doc; 
-        res.status(200).redirect('/');
-        // res.status(200).json({...others, accessToken});
-      } catch (err) {
-        res.status(500).json(err);
-      }
+  try {
+      const user = await User.findOne({ username: req.body.username });
+      !user && res.status(401).json("Wrong credentials!");
+      const hashedPassword = CryptoJS.AES.decrypt(
+        user.password,
+        process.env.PASS_SEC
+      );
+      const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+      originalPassword !== req.body.password && res.status(401).json("Wrong credentials!");
+      //JWT ACCESS TOKEN
+      const token=jwt.sign(
+          {
+            id: user._id,
+            isAdmin: user.isAdmin,
+          },
+          process.env.JWT_SEC,
+          {expiresIn:"3d"}
+      );
+
+      res.cookie("token",token,{
+        httpOnly:true,
+        // secure:true,
+        // maxAge:1000000,
+        // signed:true,
+       });
+
+
+      // const{password, ...others}=user._doc; 
+      res.status(200).redirect('/');
+      // res.status(200).json({token});
+    } catch (err) {
+      res.status(500).json(err);
+    }
 }
+
+// exports.UserLogin=async (req,res)=>{
+//     try {
+//         const user = await User.findOne({ username: req.body.username });
+//         !user && res.status(401).json("Wrong credentials!");
+//         const hashedPassword = CryptoJS.AES.decrypt(
+//           user.password,
+//           process.env.PASS_SEC
+//         );
+//         const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+//         originalPassword !== req.body.password && res.status(401).json("Wrong credentials!");
+//         //JWT ACCESS TOKEN
+//         const accessToken=jwt.sign(
+//             {
+//               id: user._id,
+//               isAdmin: user.isAdmin,
+//             },
+//             process.env.JWT_SEC,
+//             {expiresIn:"3d"}
+//         );
+
+//         const{password, ...others}=user._doc; 
+//         res.status(200).redirect('/');
+//         // res.status(200).json({...others, accessToken});
+//       } catch (err) {
+//         res.status(500).json(err);
+//       }
+// }
+
+
+
+
+
+
 exports.UserLoginPage=async (req,res)=>{
   try{
     res.render('login')
