@@ -15,6 +15,7 @@ router.post("/add-to-cart/:id",controller.AddItemToCArt);
 
 router.get("/count",controller.CartCount);
 
+
   
   //UPDATE
   router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
@@ -55,14 +56,12 @@ router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
   
   // //GET ALL
   
-  router.get("/", verifyTokenAndAdmin, async (req, res) => {
-    try {
-      const carts = await Cart.find();
-      res.status(200).json(carts);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
+  router.get("/", verifyToken,controller.getCart);
+  // router.post("/change-product-quantity", verifyToken,(req,res)=>{
+  //   console.log(req.body);
+  // });
+  router.post("/change-product-quantity", verifyToken,controller.changeProductQuantity);
+  router.post("/delete-product", verifyToken,controller.deleteProduct);
 
 
 module.exports = router;

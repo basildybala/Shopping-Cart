@@ -1,6 +1,7 @@
 
 const Product = require("../models/Product");
 const slugify=require('slugify');
+const { default: mongoose } = require("mongoose");
 
 
 exports.AddProduct=async (req,res)=>{
@@ -57,7 +58,6 @@ exports.UpdateProduct=async (req,res)=>{
 }
 exports.GetOneProduct=async (req,res)=>{
     try {
-      console.log(req.params.id);
         const product = await Product.findById(req.params.id);
         res.render('product',{product});
       } catch (err) {

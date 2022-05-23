@@ -44,6 +44,7 @@ exports.UserLogin=async (req,res)=>{
 
       res.cookie("token",token,{
         httpOnly:true,
+        
         // secure:true,
         // maxAge:1000000,
         // signed:true,

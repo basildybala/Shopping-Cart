@@ -249,3 +249,9 @@ a{
     flex-direction: column;
     margin-top: 30px;
 }
+.cart span{
+    height: 20px;
+}
+.fa-shopping-cart{
+    font-size: 20px;
+}
