@@ -1,6 +1,4 @@
 const Product = require("../models/Product");
-const Products = require("../models/Product");
-
 const Cart = require("../models/Cart");
 const jwt = require('jsonwebtoken');
 const match = require("nodemon/lib/monitor/match");

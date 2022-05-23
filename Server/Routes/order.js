@@ -4,8 +4,19 @@ const {
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
+const controller = require('../Controller/order')
 
 const router = require("express").Router();
+
+
+
+router.get("/",verifyToken, controller.pageRender);
+
+
+
+
+
+
 
 //CREATE
 
