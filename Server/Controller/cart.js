@@ -3,6 +3,12 @@ const Cart = require("../models/Cart");
 const jwt = require('jsonwebtoken');
 const match = require("nodemon/lib/monitor/match");
 const { default: mongoose } = require("mongoose");
+const globalFunctions=require('./global')
+
+
+
+
+
 exports.AddItemToCArt=async (req,res)=>{
 
     try{
@@ -200,9 +206,14 @@ exports.getCart=async (req,res)=>{
 
         ])
         .then().catch((e)=>{console.log(e);})
-       
-        
-        res.render('cart',{MyCart})
+
+        let total=await globalFunctions.getTotalAmount(userID).then().catch(e=>{console.log(e);})
+
+        totalAmount =total[0].total
+
+        let itemAndTotal=await globalFunctions.getItemandTotal(userID).then().catch(e=>{console.log(e);})
+         
+        res.render('cart',{MyCart,totalAmount,itemAndTotal})
         
     }catch(err){
         console.log(err);
@@ -223,13 +234,23 @@ exports.changeProductQuantity=async (req,res)=>{
             res.json({removeProduct:true})
            
             
+        }else{
+            let CArtt=await Cart.findOneAndUpdate({"user":userId,"cartItems.product":productId},{                              
+                $inc: { 'cartItems.$.quantity': count }
+            })
+            let total=await globalFunctions.getTotalAmount(userId).then().catch(e=>{console.log(e);})
+    
+                 totalAmount =total[0].total
+
+
+
+                 res.json({total:totalAmount})
+
         }
-        let Cartt=await Cart.findOneAndUpdate({"user":userId,"cartItems.product":productId},{                              
-            $inc: { 'cartItems.$.quantity': count }
-        })
-        console.log(Cartt);
         
-        res.json({status:true})
+        
+        
+        
         console.log(count,quantity,cartId);
     }catch (err){
         console.log(err);

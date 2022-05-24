@@ -140,16 +140,16 @@
                                 </tr>
                             </thead>
                             <tbody class="align-middle">
-                                
+                                <% products.forEach (function (p){%>
                                 <tr>
-                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">asd asd</td>
-                                    <td class="align-middle">123</td>
+                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;"><%= p.productName %></td>
+                                    <td class="align-middle"><%= p.price %></td>
                                     
-                                    <td class="align-middle">$15</td>
-                                    <td class="align-middle">$105</td>
+                                    <td class="align-middle"><%= p.quantity %></td>
+                                    <td class="align-middle"><%= p.total %></td>
                                     
                                 </tr>
-                               
+                                <% });%>
                             </tbody>
                         </table>
 
@@ -158,21 +158,22 @@
 
 
 
+                        <!-- <div class="all-d"> -->
 
-
-                        <div class="d-flex justify-content-between">
+                        <!-- <div class="d-flex all-d">
                             <h6 class="mb-3">Products</h6> 
-                            <p class="mb-3">Price</p> 
+                            <h6 class="mb-3">Price</h6> 
                             <h6 class="mb-3">Quantity</h6>
                             <h6 class="mb-3">Total</h6>
                         </div>
                         
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex all-d">
                             <p>Product Name</p>
-                            <p class="d-flex justify-content-center"> 250</p>
+                            <p> 250</p>
                             <p>2</p>
                             <p>$150</p>
-                        </div>
+                        </div> -->
+                        <!-- </div> -->
                         <!-- <div class="d-flex justify-content-between">
                             <p>Product Name 2</p>
                             <p>$150</p>
@@ -185,17 +186,17 @@
                     <div class="border-bottom pt-3 pb-2">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Subtotal</h6>
-                            <h6>$150</h6>
+                            <h6><%= total %></h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">$10</h6>
+                            <h6 class="font-weight-medium">Free</h6>
                         </div>
                     </div>
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
-                            <h5>$160</h5>
+                            <h5><%= total %></h5>
                         </div>
                     </div>
                 </div>
