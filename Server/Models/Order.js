@@ -10,6 +10,10 @@ const OrderSchema = new mongoose.Schema(
     amount:{type:Number,required:true},
     address:{type:Object,required:true},
     status:{type:String,default:'Pending'},
+    name:{type:String},
+    mobileno:{type:Number},
+    payment:{type:String},
+    pincode:{type:String}
    
   },
   { timestamps: true }

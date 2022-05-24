@@ -44,7 +44,8 @@ exports.pageRender=async (req,res)=>{
                     total:{$sum:{$multiply:['$quantity','$product.price']}},
                     productName:'$product.title',
                     quantity:1,
-                    price:'$product.price'
+                    price:'$product.price',
+                    proId:'$product._id'
                 }
                 // $group:{
                 //     _id:null,
@@ -118,4 +119,14 @@ exports.pageRender=async (req,res)=>{
     }
 
      
+}
+
+exports.orderSumbit=async (req,res)=>{
+    console.log(req.user.id);
+    try {
+        
+    } catch (error) {
+        console.log(error);
+    }
+    
 }

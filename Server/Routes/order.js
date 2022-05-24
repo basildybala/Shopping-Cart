@@ -10,8 +10,9 @@ const router = require("express").Router();
 
 
 
-router.get("/",verifyToken, controller.pageRender);
 
+router.get("/",verifyToken, controller.pageRender);
+router.post("/",verifyToken, controller.orderSumbit);
 
 
 
