@@ -13,6 +13,7 @@ const router = require("express").Router();
 
 router.get("/",verifyToken, controller.pageRender);
 router.post("/",verifyToken, controller.orderSumbit);
+router.get("/my-orders",verifyToken, controller.myOrders);
 
 
 

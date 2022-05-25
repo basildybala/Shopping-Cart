@@ -7,58 +7,69 @@ module.exports = {
 
     getTotalAmount:(userID)=>{
         return new Promise (async(resolve,reject)=>{
-            let productsTotal=await Cart.aggregate([
 
-                {$match: {user:new mongoose.Types.ObjectId(userID)}},
-            
-                {
-                    $unwind: '$cartItems'
-                },
-                {
-                    $project: {
-                        item: '$cartItems.product',
-                        quantity: '$cartItems.quantity'
-                    }
-                },
-                {
-                    $lookup: {
-                        from: 'products',
-                        localField: 'item',
-                        foreignField: '_id',
-                        as: 'product'
-                    }
-                },
-                {
-                    $project: {
-                        item: 1,
-                        quantity: 1,
-                        product: { $arrayElemAt: ['$product', 0] }
-                    }
-                },
-                {
-                    // $project:{
-                    //     total:{$sum:{$multiply:['$quantity','$product.price']}},
-                    //     productName:'$product.title',
-                    //     quantity:1,
-                    //     price:'$product.price'
-                    // }
-                    $group:{
-                        _id:null,
-                        total:{$sum:{$multiply:['$quantity','$product.price']}},
-                    }
-                },
-                {
-                    $project: {
-                        total: 1,
-                        
-                    }
-                }
-            
+            let userCart=await Cart.findOne({user:userID})
+
+            if (userCart) {
+                let productsTotal=await Cart.aggregate([
+
+                    {$match: {user:new mongoose.Types.ObjectId(userID)}},
                 
+                    {
+                        $unwind: '$cartItems'
+                    },
+                    {
+                        $project: {
+                            item: '$cartItems.product',
+                            quantity: '$cartItems.quantity'
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: 'products',
+                            localField: 'item',
+                            foreignField: '_id',
+                            as: 'product'
+                        }
+                    },
+                    {
+                        $project: {
+                            item: 1,
+                            quantity: 1,
+                            product: { $arrayElemAt: ['$product', 0] }
+                        }
+                    },
+                    {
+                        // $project:{
+                        //     total:{$sum:{$multiply:['$quantity','$product.price']}},
+                        //     productName:'$product.title',
+                        //     quantity:1,
+                        //     price:'$product.price'
+                        // }
+                        $group:{
+                            _id:null,
+                            total:{$sum:{$multiply:['$quantity','$product.price']}},
+                        }
+                    },
+                    {
+                        $project: {
+                            total: 1,
+                            
+                        }
+                    }
+                
+                    
+                
+                ])
+                .then().catch((e)=>{console.log(e);})
+                resolve(productsTotal)   
+
+
+            } else {
+                console.log('Nocart');
+                resolve(null)
+            }
             
-            ])
-            .then().catch((e)=>{console.log(e);})
-            resolve(productsTotal)
         })
     },
     getItemandTotal:(userID)=>{
@@ -98,7 +109,9 @@ module.exports = {
                         total:{$sum:{$multiply:['$quantity','$product.price']}},
                         productName:'$product.title',
                         quantity:1,
-                        price:'$product.price'
+                        price:'$product.price',
+                        proId:'$product._id',
+                        proPic:'$product.productPictures'
                     }
                     // $group:{
                     //     _id:null,
@@ -106,9 +119,10 @@ module.exports = {
                     // }
                 }
                 
-    
+                
             ])
             .then().catch((e)=>{console.log(e);})
+            console.log(productsAndToatal);
             resolve(productsAndToatal)
         })
 

@@ -145,7 +145,8 @@
                 method:'post',
                 data:$('#check-out-form').serialize(),
                 success:(response)=>{
-                    alert('haii')
+                    location.href='/api/order/my-orders'
+                   
                 }
 
             })

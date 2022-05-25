@@ -1,0 +1,116 @@
+<%- include('../layout/userheader'); -%>
+<style>
+    .order-p{
+        margin-left: 5px;
+    }
+    .total p{
+        font-size: 20px;
+    }
+</style>
+
+<h5 class="section-title position-relative text-uppercase my-5 mb-1"><span class="bg-secondary pr-3">My Orders</span></h5>
+<% ordersList.forEach (function (orders){%>
+
+<div class="container-fluid   d-flex  justify-content-center " >
+    
+    <div class="card card-1 col-lg-12 ">
+      
+        <div class="card-body">
+        
+            <% orders.products.forEach (function (p){%>
+            
+            
+                
+                
+            <div class="row">
+                <div class="col">
+                    <div class="card card-2">
+                        <div class="card-body">
+                            
+                            
+                            <div class="media">
+                                <div class="sq align-self-center "> <img class="img-fluid  my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" src="/public/images/<%= p.proPic[0] %>" width="135" height="135" /> </div>
+                                <div class="media-body my-auto text-right">
+                                    <div class="row  my-auto flex-column flex-md-row">
+                                        <div class="col my-auto"> <h6 class="mb-0"> <%= p.productName %></h6>  </div>
+                                        
+                                        <!-- <div class="col my-auto"> <small>Size : M</small></div> -->
+                                        <div class="col my-auto"> <small>Qty : <%= p.quantity %></small></div>
+                                        <div class="col-auto my-auto"> <small>Price:  <%= p.price %>  </small></div>
+                                        <div class="col my-auto"><h6 class="mb-0">Total: &#8377;<%= p.total %></h6>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <% });%>
+           
+            <div class="row mt-4">
+                <div class="col row">
+                    
+                    <div class="col-auto"><p class="mb-1 text-dark"><b>Order Details</b></p></div><hr>
+                    <div class="d-flex   "> 
+                        <div class=" "> <p class=""><b>Name :</b></p> </div>
+                        <div class=" "> <p class="order-p"><%= orders.name %></p> </div>
+                    </div>
+                    <div class="d-flex"> 
+                        <div class=""> <p class="mb-1"><b>Addres :</b></p> </div>
+                        <div class=""> <p class="mb-1"><%= orders.address %></p> </div>
+                    </div>
+                    <div class="d-flex"> 
+                        <div class=""> <p class="mb-1"><b>Pincode :</b></p> </div>
+                        <div class=""> <p class="mb-1"><%= orders.pincode %></p> </div>
+                    </div>
+                    <div class="d-flex"> 
+                        <div class=""> <p class="mb-1"><b>Mobile No :</b></p> </div>
+                        <div class=""> <p class="mb-1"><%= orders.mobileno %></p> </div>
+                    </div>
+                    <div class="d-flex"> 
+                        <div class=""> <p class="mb-1"><b>Payment Method :</b></p> </div>
+                        <div class=""> <p class="mb-1"><%= orders.payment %></p> </div>
+                    </div>
+                    <div class="d-flex"> 
+                        <div class=""> <p class="mb-1"><b>Order Date :</b></p> </div>
+                        <div class=""> <p class="mb-1"><%= orders.createdAt %></p> </div>
+                    </div>
+                    <div class="d-flex"> 
+                        <div class=""> <p class="mb-1"><b>Status :</b></p> </div>
+                        <div class=""> <p class="mb-1"><%= orders.status %></p> </div>
+                    </div>
+                    <div class="d-flex" > 
+                        <div class="total" > <p class="mb-1"><b>Total:</b></p> </div>
+                        <div class="total"> <p class="mb-1" >&#8377;<%= orders.totalAmount %></p> </div>
+                    </div>
+                   
+               
+                </div>
+            </div>
+            
+        </div>
+        <!-- <div class="card-footer">
+            <div class="jumbotron-fluid">
+                <div class="row justify-content-between ">
+                    <div class="col-sm-auto col-auto my-auto"><img class="img-fluid my-auto align-self-center " src="https://i.imgur.com/7q7gIzR.png" width="115" height="115"></div>
+                    <div class="col-auto my-auto "><h2 class="mb-0 font-weight-bold">TOTAL PAID</h2></div>
+                    <div class="col-auto my-auto ml-auto"><h1 class="display-3 ">&#8377; 5,528</h1></div>
+                </div>
+                <div class="row mb-3 mt-3 mt-md-0">
+                    <div class="col-auto border-line"> <small class="text-white">PAN:AA02hDW7E</small></div>
+                    <div class="col-auto border-line"> <small class="text-white">CIN:UMMC20PTC </small></div>
+                    <div class="col-auto "><small class="text-white">GSTN:268FD07EXX </small> </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+
+<% });%>
+
+<%- include('../layout/userfooter'); -%>

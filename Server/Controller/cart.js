@@ -208,8 +208,12 @@ exports.getCart=async (req,res)=>{
         .then().catch((e)=>{console.log(e);})
 
         let total=await globalFunctions.getTotalAmount(userID).then().catch(e=>{console.log(e);})
-
-        totalAmount =total[0].total
+        if (total===null) {
+            totalAmount=null
+        } else {
+            totalAmount =total[0].total
+        }
+        
 
         let itemAndTotal=await globalFunctions.getItemandTotal(userID).then().catch(e=>{console.log(e);})
          
