@@ -2,6 +2,7 @@ const Product = require("../models/Product");
 const Cart = require("../models/Cart");
 const jwt = require('jsonwebtoken');
 const { default: mongoose } = require("mongoose");
+const res = require("express/lib/response");
 
 module.exports = {
 
@@ -66,8 +67,11 @@ module.exports = {
 
 
             } else {
-                console.log('Nocart');
+                // reject()
                 resolve(null)
+                console.log('Nocart');
+                
+                res.json({status:false})
             }
             
         })

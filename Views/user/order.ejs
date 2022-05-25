@@ -145,7 +145,14 @@
                 method:'post',
                 data:$('#check-out-form').serialize(),
                 success:(response)=>{
-                    location.href='/api/order/my-orders'
+                    if(response.status){
+                        alert('Cod')
+                    //location.href='/api/order/my-orders'
+                    }else if(response.razorpay){
+                        alert('Razor Pay')
+                    }else{
+                        alert('NO ITEM')
+                    }
                    
                 }
 

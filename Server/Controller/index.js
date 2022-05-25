@@ -11,7 +11,7 @@ const {
 
 
 exports.AllProduct = async (req, res) => {
-
+      
 
     try {
         let token = req.cookies.token

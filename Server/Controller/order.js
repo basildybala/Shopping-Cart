@@ -4,6 +4,19 @@ const Cart = require("../models/Cart");
 const mongoose = require("mongoose");
 const globalFunctions=require('./global');
 const shortid=require('shortid');
+const dotenv=require('dotenv');
+dotenv.config()
+const Razorpay = require('razorpay');
+var instance = new Razorpay({
+    key_id:process.env.RAZOR_PAY_PUBLIC_KEY,
+    key_secret: process.env.RAZOR_PAY_SECRET_KEY,
+  });
+
+// var instance = new Razorpay({
+//     key_id: 'YOUR_KEY_ID',
+//     key_secret: 'YOUR_KEY_SECRET',
+// });  
+  
 
 
 
@@ -61,9 +74,13 @@ exports.pageRender=async (req,res)=>{
         let products=await globalFunctions.getItemandTotal(userID).then().catch(e=>{console.log('Erro at User Cart Total Amount and Products code'+e);})
 
         let totalAmount=await globalFunctions.getTotalAmount(userID).then().catch(e=>{console.log('Erro at User Cart Total Amount code'+e);})
-    
-        total =totalAmount[0].total
-        console.log(total);
+        
+        if (totalAmount===null) {
+            total=null
+        } else {
+            total =totalAmount[0].total
+        }
+        
         res.render('user/order',{products,total})
         
     }catch(err){
@@ -94,15 +111,40 @@ exports.orderSumbit=async (req,res)=>{
             pincode:req.body.pincode,
         })
 
-        userOrder.save().then((response)=>{
+       let orderID=await userOrder.save().then((response)=>{
             Cart.findOneAndRemove({user:userID}).then().catch(e=>{console.log('err cart remoove'+e);})
+            // console.log('ORDER DETAILS'+ response.orderShortId);
+            return userOrder.orderShortId
         }).catch(err=>{
             console.log('Err In Order Time'+err);
         })
-        res.json({status:true})
-        console.log(userOrder);
+
+        if(req.body.payment==='cod'){
+            res.json({status:true})
+        }else if (req.body.payment==='razorpay'){
+            var options = {
+                amount: totalAmount[0].total ,  // amount in the smallest currency unit
+                currency: "INR",
+                receipt: orderID
+              };
+              instance.orders.create(options, function(err, order) {
+                if (err) {
+                    console.log('ERR IN PAYMENT RAZORPAY',err);
+                } else {
+                    console.log(order);
+                }
+                console.log(order);
+              });
+          
+
+            res.json({razorpay:true})
+        }
+
+        
+        
 
     } catch (error) {
+        res.json({status:false})
         console.log(error);
     }
     
@@ -114,6 +156,18 @@ exports.myOrders=async (req,res)=>{
         let ordersList= await Order.find({userId:userID})
         console.log(ordersList);
         res.render('user/my-orders',{ordersList})    
+    } catch (error) {
+        console.log(error);
+    }
+
+    
+}
+exports.orderSuccess=async (req,res)=>{
+    try {
+        // let userID=req.user.id
+        // let ordersList= await Order.find({userId:userID})
+        // console.log(ordersList);
+        res.render('user/order-success',)    
     } catch (error) {
         console.log(error);
     }

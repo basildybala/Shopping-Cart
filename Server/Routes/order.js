@@ -1,3 +1,4 @@
+
 const Order = require("../models/Order");
 const {
   verifyToken,
@@ -15,6 +16,7 @@ router.get("/",verifyToken, controller.pageRender);
 router.post("/",verifyToken, controller.orderSumbit);
 router.get("/my-orders",verifyToken, controller.myOrders);
 
+router.get("/order-success",verifyToken, controller.orderSuccess);
 
 
 
