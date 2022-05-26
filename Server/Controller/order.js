@@ -27,62 +27,30 @@ exports.pageRender=async (req,res)=>{
     try{
         let userID=req.user.id
        
-    //    let productss=await Cart.aggregate([
+       let userCart= await Cart.findOne({user:userID})
 
-    //         {$match: {user:new mongoose.Types.ObjectId(userID)}},
-
-    //         {
-    //             $unwind: '$cartItems'
-    //         },
-    //         {
-    //             $project: {
-    //                 item: '$cartItems.product',
-    //                 quantity: '$cartItems.quantity'
-    //             }
-    //         },
-    //         {
-    //             $lookup: {
-    //                 from: 'products',
-    //                 localField: 'item',
-    //                 foreignField: '_id',
-    //                 as: 'product'
-    //             }
-    //         },
-    //         {
-    //             $project: {
-    //                 item: 1,
-    //                 quantity: 1,
-    //                 product: { $arrayElemAt: ['$product', 0] }
-    //             }
-    //         },
-    //         {
-    //             $project:{
-    //                 total:{$sum:{$multiply:['$quantity','$product.price']}},
-    //                 productName:'$product.title',
-    //                 quantity:1,
-    //                 price:'$product.price',
-    //                 proId:'$product._id'
-    //             }
-    //             // $group:{
-    //             //     _id:null,
-    //             //     total:{$sum:{$multiply:['$quantity','$product.price']}},
-    //             // }
-    //         }
-            
-
-    //     ])
-    //     .then().catch((e)=>{console.log(e);})
+       if (userCart) {
         let products=await globalFunctions.getItemandTotal(userID).then().catch(e=>{console.log('Erro at User Cart Total Amount and Products code'+e);})
 
         let totalAmount=await globalFunctions.getTotalAmount(userID).then().catch(e=>{console.log('Erro at User Cart Total Amount code'+e);})
-        
-        if (totalAmount===null) {
-            total=null
-        } else {
-            total =totalAmount[0].total
-        }
-        
+        total =totalAmount[0].total
+
         res.render('user/order',{products,total})
+       }else{
+        //    let products=null
+           let total=null
+           let products=await globalFunctions.getItemandTotal(userID).then().catch(e=>{console.log('Erro at User Cart Total Amount and Products code'+e);})
+           res.render('user/order',{products,total})
+       }
+        
+        
+        // if (totalAmount===null) {
+        //     total=null
+        // } else {
+        //     total =totalAmount[0].total
+        // }
+        
+        
         
     }catch(err){
         console.log(err);
@@ -96,9 +64,15 @@ exports.orderSumbit=async (req,res)=>{
     
     try {
         let userID=req.user.id
+        // let userCart= await Cart.findOne({user:userID})
+
+        
         let products=await globalFunctions.getItemandTotal(userID).then().catch(e=>{console.log('Erro at User Cart Total Amount and Products code'+e);})
 
         let totalAmount=await globalFunctions.getTotalAmount(userID).then().catch(e=>{console.log('Erro at User Cart Total Amount code'+e);})
+        
+
+        
        
         let userOrder=await new Order ({
             userId :userID,
@@ -112,25 +86,29 @@ exports.orderSumbit=async (req,res)=>{
             pincode:req.body.pincode,
         })
 
-    //    let orderID=await userOrder.save().then((response)=>{
-    //         Cart.findOneAndRemove({user:userID}).then().catch(e=>{console.log('err cart remoove'+e);})
-    //         // console.log('ORDER DETAILS'+ response.orderShortId);
-    //         return userOrder.orderShortId
-    //     }).catch(err=>{
-    //         console.log('Err In Order Time'+err);
-    //     })
+       let orderID=await userOrder.save().then((response)=>{
+            // Cart.findOneAndRemove({user:userID}).then().catch(e=>{console.log('err cart remoove'+e);})
+            // console.log('ORDER DETAILS'+ response.orderShortId);
+            return userOrder.orderShortId
+        }).catch(err=>{
+            console.log('Err In Order Time'+err);
+        })
 
         if(req.body.payment==='cod'){
+            console.log('COdd');
+            Cart.findOneAndRemove({user:userID}).then().catch(e=>{console.log('err cart remoove'+e);})
+            
             res.json({codStatus:true})
         }else if (req.body.payment==='razorpay'){
             var options = {
                 amount: totalAmount[0].total*100 ,  // amount in the smallest currency unit
                 currency: "INR",
-                receipt: "abcd"
+                receipt: orderID,
               };
               instance.orders.create(options, function(err, order) {
                 if (err) {
-                    console.log('ERR IN PAYMENT RAZORPAY',err);
+
+                    console.log(err);
                 } else {
                    
                     res.json({razorpay:order})
@@ -179,6 +157,7 @@ exports.orderSuccess=async (req,res)=>{
 exports.verifyRazorPay=async (req,res)=>{
 
     try {
+        
         let details=req.body
         console.log('Details',details);
        
@@ -187,9 +166,20 @@ exports.verifyRazorPay=async (req,res)=>{
         let hmac= CryptoJS.createHmac('sha256',process.env.RAZOR_PAY_SECRET_KEY);
         hmac.update(details.payment.razorpay_order_id+'|'+details.payment.razorpay_payment_id,)
         hmac=hmac.digest('hex')
-
+        
         if (hmac===details.payment.razorpay_signature) {
             res.json({razorpay:true})
+            Order.findOneAndUpdate({orderShortId:details.order.receipt},
+                {
+                    $set:{
+                        status:'Placed'
+                    }
+                }
+                ).then((order)=>{
+                    // console.log('USer ID',O.userId);
+                    Cart.findOneAndRemove({user:order.userId}).then().catch(e=>{console.log('err cart remoove'+e);})
+                }).catch(e=>{console.log('Err IN Razor payement Update time set Placed',e);})
+
             console.log('Success Payment');
         } else {
             res.json({razorpay:false})

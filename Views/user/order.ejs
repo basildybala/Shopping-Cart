@@ -147,8 +147,8 @@
                 data:$('#check-out-form').serialize(),
                 success:(response)=>{
                     if(response.codStatus){
-                        alert('Cod')
-                    //location.href='/api/order/my-orders'
+                        
+                        location.href='/api/order/order-success'
                     }else if(response.razorpay){
                         alert('Razor Pay')
                         console.log('Razor Pay',response.razorpay);

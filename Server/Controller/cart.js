@@ -173,9 +173,16 @@ exports.CartCount=async(req,res)=>{
 
 exports.getCart=async (req,res)=>{
     try{
+    
         let userID=req.user.id
-        console.log(userID);
-       let MyCart=await Cart.aggregate([
+       
+        let userCart= await Cart.findOne({user:userID})
+
+ 
+        if (userCart && userCart.cartItems.length >0 ) {
+            
+    
+          let MyCart=await Cart.aggregate([
 
             {$match: {user:new mongoose.Types.ObjectId(userID)}},
 
@@ -207,17 +214,27 @@ exports.getCart=async (req,res)=>{
         ])
         .then().catch((e)=>{console.log(e);})
 
-        let total=await globalFunctions.getTotalAmount(userID).then().catch(e=>{console.log(e);})
-        if (total===null) {
-            totalAmount=null
-        } else {
-            totalAmount =total[0].total
+        let total=await globalFunctions.getTotalAmount(userID).then().catch(e=>{console.log(e);}) 
+        totalAmount =total[0].total
+
+        // let itemAndTotal=await globalFunctions.getItemandTotal(userID).then().catch(e=>{console.log(e);})
+        res.render('cart',{MyCart,totalAmount,})
+        }else{
+            res.redirect('/')
         }
+
+
+        
+        // if (total===null) {
+        //     totalAmount=null
+        // } else {
+        //     totalAmount =total[0].total
+        // }
         
 
-        let itemAndTotal=await globalFunctions.getItemandTotal(userID).then().catch(e=>{console.log(e);})
+        
          
-        res.render('cart',{MyCart,totalAmount,itemAndTotal})
+        
         
     }catch(err){
         console.log(err);
