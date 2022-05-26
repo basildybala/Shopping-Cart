@@ -34,7 +34,7 @@ exports.AddItemToCArt=async (req,res)=>{
                 if(cart) {
                    
                  let product=req.params.id;
-                    //    let isItemAdded=await cart.cartItems.find(c=> c.product == product);
+                    //   Check item Already Exist or Not
                        let isItemAdded=await cart.cartItems.find(c=> c.product == product);
                        
                          if(isItemAdded){
@@ -45,9 +45,7 @@ exports.AddItemToCArt=async (req,res)=>{
                                 
                             })
 
-                            res.status(200).json({quantity:true});                        
-                            //  res.send(Cartt)                    
-                            
+                            res.status(200).json({quantity:true});                                          
                          }else{
                              console.log('No Product');
                              let cart=await Cart.findOne({user:req.user.id})
@@ -67,6 +65,7 @@ exports.AddItemToCArt=async (req,res)=>{
                              // res.send(CartU)  
                          }
                 }else{
+                //user No cart Then Create One Cart    
                    let proid= req.params.id
                  const newCart = new Cart({
                      user:req.user.id,
@@ -79,74 +78,16 @@ exports.AddItemToCArt=async (req,res)=>{
                  res.status(200).json({status:true});
                 }
         }else{
-            res.status(200).json({status:false});
+            res.status(204).json({status:false});
         }
     }catch(err){
         console.log(err)
-        res.status(200).json({status:false});
+        res.status(204).json({status:false});
     }
     
   
   
-    // try {
-    //    
-   
-    //  } catch (err) {
-    //    res.status(500).json(err);
-    //  }
  }
-
-
-
-   
-//     try {
-//        let cart=await Cart.findOne({user:req.user.id})
-
-//        if(cart) {
-//         let product=req.body.cartItems.product;
-//         let isItemAdded=cart.cartItems.find(c=> c.product == product);
-//                 if(isItemAdded){
-//                     let product=req.body.cartItems.product;
-//                 //    let Cartt=await Cart.findOneAndUpdate({"user":req.user.id,"cartItems.product":product})
-                    
-                   
-//                    let Cartt=await Cart.findOneAndUpdate({"user":req.user.id,"cartItems.product":product},{
-//                     "$set":{
-//                         "cartItems.$":{
-//                              ... req.body.cartItems,
-//                              quantity:isItemAdded.quantity+req.body.cartItems.quantity
-//                         }
-//                     }
-//                     })
-//                     res.send(Cartt)                    
-                   
-//                 }else{
-//                     // let cart=await Cart.findOne({user:req.user.id})
-//                     // console.log(cart);
-//                      Cart.findOneAndUpdate({user:req.user.id},{
-//                         "$push":{
-//                             "cartItems":req.body.cartItems
-//                         }
-//                     }).then(ca=>{
-//                         res.send(ca)
-//                     }).catch(e=>{
-//                         console.log(e);
-//                     })
-//                     // res.send(CartU)  
-//                 }
-//        }else{
-//         const newCart = new Cart({
-//             user:req.user.id,
-//             cartItems:[req.body.cartItems]
-//         });
-//         const savedCart = await newCart.save();
-//         res.status(200).json(savedCart);
-//        }
-  
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-// }
 
 exports.CartCount=async(req,res)=>{
 
@@ -173,7 +114,7 @@ exports.CartCount=async(req,res)=>{
 
 exports.getCart=async (req,res)=>{
     try{
-    
+    //product lookup 
         let userID=req.user.id
        
         let userCart= await Cart.findOne({user:userID})
@@ -220,22 +161,10 @@ exports.getCart=async (req,res)=>{
         // let itemAndTotal=await globalFunctions.getItemandTotal(userID).then().catch(e=>{console.log(e);})
         res.render('cart',{MyCart,totalAmount,})
         }else{
-            res.redirect('/')
+            
+            res.status(205).render('user/no-cart-items')
         }
-
-
-        
-        // if (total===null) {
-        //     totalAmount=null
-        // } else {
-        //     totalAmount =total[0].total
-        // }
-        
-
-        
-         
-        
-        
+              
     }catch(err){
         console.log(err);
     }
@@ -243,11 +172,15 @@ exports.getCart=async (req,res)=>{
 
 exports.changeProductQuantity=async (req,res)=>{
     try{
+        //collect data from ajax req
+
         let count =parseInt(req.body.count);
         let quantity =parseInt(req.body.quantity)
         let userId=req.user.id
         let productId=req.body.product
         let cartId=req.body.cart
+
+        //check product count and pro count is zero then delete Product
         if (count==-1 && quantity==1) {
             let Cartt=await Cart.findOneAndUpdate({"_id":cartId},{                              
                 $pull: { cartItems:{product:productId} }
@@ -256,6 +189,7 @@ exports.changeProductQuantity=async (req,res)=>{
            
             
         }else{
+            //othe times Increase or Decrese Product quantity
             let CArtt=await Cart.findOneAndUpdate({"user":userId,"cartItems.product":productId},{                              
                 $inc: { 'cartItems.$.quantity': count }
             })
@@ -263,22 +197,20 @@ exports.changeProductQuantity=async (req,res)=>{
     
                  totalAmount =total[0].total
 
-
-
                  res.json({total:totalAmount})
 
         }
-        
-        
-        
-        
-        console.log(count,quantity,cartId);
+
     }catch (err){
         console.log(err);
     }
 }
+
+
 exports.deleteProduct=async(req,res)=>{
     try {
+        //Delete product Ajax rqst
+
         let proId =req.body.product
         let cartId =req.body.cart
         let userId =req.user.id

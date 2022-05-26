@@ -13,27 +13,22 @@ const router = require("express").Router();
 
 
 router.get("/",verifyToken, controller.pageRender);
+
+//order details in Ajax Order Create
 router.post("/",verifyToken, controller.orderSumbit);
+
+//veyfy Payment
+router.post('/verify-payment',controller.verifyRazorPay)
+
+//Find User Order
 router.get("/my-orders",verifyToken, controller.myOrders);
 
 router.get("/order-success",verifyToken, controller.orderSuccess);
-router.post('/verify-payment',controller.verifyRazorPay)
 
 
 
 
-//CREATE
 
-router.post("/", verifyToken, async (req, res) => {
-  const newOrder = new Order(req.body);
-
-  try {
-    const savedOrder = await newOrder.save();
-    res.status(200).json(savedOrder);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 //UPDATE
 router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
@@ -61,15 +56,6 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-//GET USER ORDERS
-router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
-  try {
-    const orders = await Order.find({ userId: req.params.userId });
-    res.status(200).json(orders);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 // //GET ALL
 

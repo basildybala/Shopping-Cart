@@ -43,6 +43,11 @@ app.use('/api/order',orderRoutes)
 app.use('/api/category',categoryRoutes)
 app.use('/',indexRoute)
 
+app.get('*',(req,res)=>{
+
+    res.render('page-not-found')
+})
+
 
 
 app.listen(process.env.PORT,()=>console.log('Sever Running 5000'))

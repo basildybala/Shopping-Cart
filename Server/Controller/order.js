@@ -130,30 +130,7 @@ exports.orderSumbit=async (req,res)=>{
     
 }
 
-exports.myOrders=async (req,res)=>{
-    try {
-        let userID=req.user.id
-        let ordersList= await Order.find({userId:userID})
-        console.log(ordersList);
-        res.render('user/my-orders',{ordersList})    
-    } catch (error) {
-        console.log(error);
-    }
 
-    
-}
-exports.orderSuccess=async (req,res)=>{
-    try {
-        // let userID=req.user.id
-        // let ordersList= await Order.find({userId:userID})
-        // console.log(ordersList);
-        res.render('user/order-success',)    
-    } catch (error) {
-        console.log(error);
-    }
-
-    
-}
 exports.verifyRazorPay=async (req,res)=>{
 
     try {
@@ -195,4 +172,28 @@ exports.verifyRazorPay=async (req,res)=>{
     res.json({razorpay:false})
      console.log(error);
     }
+}
+exports.myOrders=async (req,res)=>{
+    try {
+        let userID=req.user.id
+        let ordersList= await Order.find({userId:userID})
+        console.log(ordersList);
+        res.render('user/my-orders',{ordersList})    
+    } catch (error) {
+        console.log(error);
+    }
+
+    
+}
+exports.orderSuccess=async (req,res)=>{
+    try {
+        // let userID=req.user.id
+        // let ordersList= await Order.find({userId:userID})
+        // console.log(ordersList);
+        res.render('user/order-success',)    
+    } catch (error) {
+        console.log(error);
+    }
+
+    
 }
