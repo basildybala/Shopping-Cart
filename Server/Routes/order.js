@@ -17,7 +17,7 @@ router.post("/",verifyToken, controller.orderSumbit);
 router.get("/my-orders",verifyToken, controller.myOrders);
 
 router.get("/order-success",verifyToken, controller.orderSuccess);
-
+router.post('/verify-payment',controller.verifyRazorPay)
 
 
 

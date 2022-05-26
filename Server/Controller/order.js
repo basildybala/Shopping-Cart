@@ -7,6 +7,7 @@ const shortid=require('shortid');
 const dotenv=require('dotenv');
 dotenv.config()
 const Razorpay = require('razorpay');
+const cryptoJs = require("crypto-js");
 var instance = new Razorpay({
     key_id:process.env.RAZOR_PAY_PUBLIC_KEY,
     key_secret: process.env.RAZOR_PAY_SECRET_KEY,
@@ -111,33 +112,34 @@ exports.orderSumbit=async (req,res)=>{
             pincode:req.body.pincode,
         })
 
-       let orderID=await userOrder.save().then((response)=>{
-            Cart.findOneAndRemove({user:userID}).then().catch(e=>{console.log('err cart remoove'+e);})
-            // console.log('ORDER DETAILS'+ response.orderShortId);
-            return userOrder.orderShortId
-        }).catch(err=>{
-            console.log('Err In Order Time'+err);
-        })
+    //    let orderID=await userOrder.save().then((response)=>{
+    //         Cart.findOneAndRemove({user:userID}).then().catch(e=>{console.log('err cart remoove'+e);})
+    //         // console.log('ORDER DETAILS'+ response.orderShortId);
+    //         return userOrder.orderShortId
+    //     }).catch(err=>{
+    //         console.log('Err In Order Time'+err);
+    //     })
 
         if(req.body.payment==='cod'){
-            res.json({status:true})
+            res.json({codStatus:true})
         }else if (req.body.payment==='razorpay'){
             var options = {
-                amount: totalAmount[0].total ,  // amount in the smallest currency unit
+                amount: totalAmount[0].total*100 ,  // amount in the smallest currency unit
                 currency: "INR",
-                receipt: orderID
+                receipt: "abcd"
               };
               instance.orders.create(options, function(err, order) {
                 if (err) {
                     console.log('ERR IN PAYMENT RAZORPAY',err);
                 } else {
-                    console.log(order);
+                   
+                    res.json({razorpay:order})
                 }
-                console.log(order);
+                
               });
           
 
-            res.json({razorpay:true})
+            
         }
 
         
@@ -173,4 +175,34 @@ exports.orderSuccess=async (req,res)=>{
     }
 
     
+}
+exports.verifyRazorPay=async (req,res)=>{
+
+    try {
+        let details=req.body
+        console.log('Details',details);
+       
+        console.log('on',details.payment.razorpay_signature);
+        let CryptoJS = require("crypto");
+        let hmac= CryptoJS.createHmac('sha256',process.env.RAZOR_PAY_SECRET_KEY);
+        hmac.update(details.payment.razorpay_order_id+'|'+details.payment.razorpay_payment_id,)
+        hmac=hmac.digest('hex')
+
+        if (hmac===details.payment.razorpay_signature) {
+            res.json({razorpay:true})
+            console.log('Success Payment');
+        } else {
+            res.json({razorpay:false})
+            console.log('Err Payment');
+        }
+
+      
+
+
+
+         
+    } catch (error) {
+    res.json({razorpay:false})
+     console.log(error);
+    }
 }

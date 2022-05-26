@@ -126,7 +126,7 @@ module.exports = {
                 
             ])
             .then().catch((e)=>{console.log(e);})
-            console.log(productsAndToatal);
+            
             resolve(productsAndToatal)
         })
 
