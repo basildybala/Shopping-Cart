@@ -35,8 +35,10 @@ exports.AllProduct = async (req, res) => {
             
         }
         console.log(count);
+
+        // let user=true
         let AllProducts = await Product.find().then().catch()
-        res.status(200).render('index', { AllProducts,count })
+        res.status(200).render('index', { AllProducts,count, })
 
 
 

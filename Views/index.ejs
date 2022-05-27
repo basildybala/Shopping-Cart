@@ -194,8 +194,9 @@
             method:'post',
             
             success:(response)=>{
+                console.log('hai');
                 if(response.status){
-                    console.log(response);
+                    
                     let count=$('#cart-count').text()
                     count=parseInt(count)+1
                     $("#cart-count").html(count)
@@ -205,6 +206,7 @@
                     alert('Same ITem Quantity Increased +1')
                     
                 }else{
+                    console.log('No cart' );
                     window.location = "/api/auth/login";
                 }
                                          

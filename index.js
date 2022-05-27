@@ -29,6 +29,13 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
+app.use(session({
+    secret:'secret',
+    cookie:{maxAge:60000},
+    resave:true,
+    saveUninitialized:true  
+}))
+
 // set view engine
 app.set("view engine", "ejs")
 //Public Folder Set Up

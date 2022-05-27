@@ -34,6 +34,7 @@ exports.AddItemToCArt=async (req,res)=>{
                 if(cart) {
                    
                  let product=req.params.id;
+                 console.log('cart ready' );
                     //   Check item Already Exist or Not
                        let isItemAdded=await cart.cartItems.find(c=> c.product == product);
                        
@@ -65,6 +66,7 @@ exports.AddItemToCArt=async (req,res)=>{
                              // res.send(CartU)  
                          }
                 }else{
+                    console.log('No cart' );
                 //user No cart Then Create One Cart    
                    let proid= req.params.id
                  const newCart = new Cart({
@@ -78,6 +80,7 @@ exports.AddItemToCArt=async (req,res)=>{
                  res.status(200).json({status:true});
                 }
         }else{
+            console.log('No cart' );
             res.status(204).json({status:false});
         }
     }catch(err){
@@ -110,17 +113,15 @@ exports.CartCount=async(req,res)=>{
 
     }
 }
-
-
 exports.getCart=async (req,res)=>{
     try{
     //product lookup 
         let userID=req.user.id
        
-        let userCart= await Cart.findOne({user:userID})
+        
 
  
-        if (userCart && userCart.cartItems.length >0 ) {
+       
             
     
           let MyCart=await Cart.aggregate([
@@ -155,20 +156,87 @@ exports.getCart=async (req,res)=>{
         ])
         .then().catch((e)=>{console.log(e);})
 
-        let total=await globalFunctions.getTotalAmount(userID).then().catch(e=>{console.log(e);}) 
-        totalAmount =total[0].total
+        let userCart= await Cart.findOne({user:userID})
+        
+        if(userCart.cartItems.length==0){
+            totalAmount=0
+        }else{
+            let total=await globalFunctions.getTotalAmount(userID).then().catch(e=>{console.log(e);}) 
+            totalAmount =total[0].total
+            console.log('pap');
+        }
+        // console.log(userCart.cartItems);
+
+        
+        
 
         // let itemAndTotal=await globalFunctions.getItemandTotal(userID).then().catch(e=>{console.log(e);})
         res.render('cart',{MyCart,totalAmount,})
-        }else{
-            
-            res.status(205).render('user/no-cart-items')
-        }
+        
               
     }catch(err){
         console.log(err);
     }
 }
+
+
+// exports.getCart=async (req,res)=>{
+//     try{
+//     //product lookup 
+//         let userID=req.user.id
+       
+//         let userCart= await Cart.findOne({user:userID})
+
+ 
+//         if (userCart && userCart.cartItems.length >0 ) {
+            
+    
+//           let MyCart=await Cart.aggregate([
+
+//             {$match: {user:new mongoose.Types.ObjectId(userID)}},
+
+//             {
+//                 $unwind: '$cartItems'
+//             },
+//             {
+//                 $project: {
+//                     item: '$cartItems.product',
+//                     quantity: '$cartItems.quantity'
+//                 }
+//             },
+//             {
+//                 $lookup: {
+//                     from: 'products',
+//                     localField: 'item',
+//                     foreignField: '_id',
+//                     as: 'product'
+//                 }
+//             },
+//             {
+//                 $project: {
+//                     item: 1,
+//                     quantity: 1,
+//                     product: { $arrayElemAt: ['$product', 0] }
+//                 }
+//             },
+
+//         ])
+//         .then().catch((e)=>{console.log(e);})
+
+//         let total=await globalFunctions.getTotalAmount(userID).then().catch(e=>{console.log(e);}) 
+//         totalAmount =total[0].total
+
+//         // let itemAndTotal=await globalFunctions.getItemandTotal(userID).then().catch(e=>{console.log(e);})
+//         res.render('cart',{MyCart,totalAmount,})
+//         }else{
+            
+//             res.status(205).render('user/no-cart-items')
+//         }
+              
+//     }catch(err){
+//         console.log(err);
+//     }
+// }
 
 exports.changeProductQuantity=async (req,res)=>{
     try{

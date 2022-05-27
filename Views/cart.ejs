@@ -44,9 +44,12 @@
                             <td class="align-middle"><button class="btn btn-sm btn-danger" onclick="deleteProduct('<%= c._id %>','<%= c.product._id %>')"><i class="fa fa-times"></i></button></td>
                         </tr>
                         <% });%>
+
                     </tbody>
                 </table>
             </div>
+
+            <% %>
             <div class="col-lg-4">
                 <!-- <form class="mb-30" action="">
                     <div class="input-group">
@@ -105,7 +108,7 @@
                    
                 document.getElementById(proId).innerHTML=quantity+count
                 document.getElementById('total').innerHTML=response.total
-                document.getElementById(proId+'a').innerHTML=(quantity+count)*price
+                // document.getElementById(proId+'a').innerHTML=(quantity+count)*price
                
                 }
 
