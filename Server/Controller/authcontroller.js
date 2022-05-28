@@ -15,7 +15,7 @@ exports.UserRegistration=async  (req,res)=>{
       try {
         const savedUser = await newUser.save();
         res.redirect('/api/auth/login')
-        res.status(201).json(savedUser);
+        // res.status(201).json(savedUser);
         console.log(savedUser);
       } catch (err) {
         res.status(500).json(err);

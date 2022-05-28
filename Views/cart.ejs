@@ -1,6 +1,10 @@
 <%- include('layout/userheader'); -%>
 
-
+<% if(MyCart==0) {%>
+    <div class="alert alert-danger" role="alert">
+        No cart Items Back To <a href="/" class="alert-link">Home Page</a>
+      </div>
+    <% } %>
     <!-- Cart Start -->
     <div class="container-fluid mt-5">
         <div class="row px-xl-5">
@@ -39,7 +43,7 @@
                             </td>
                             
                          
-                                <!-- <td class="align-middle" onload="my('assss')"  id="<%= c.product._id %>">d</td> -->
+                                <td class="align-middle" onload="my('assss')"  id="<%= c.product._id %>a"><%= itemAndTotal[0].total %></td>
                          
                             <td class="align-middle"><button class="btn btn-sm btn-danger" onclick="deleteProduct('<%= c._id %>','<%= c.product._id %>')"><i class="fa fa-times"></i></button></td>
                         </tr>
@@ -49,7 +53,7 @@
                 </table>
             </div>
 
-            <% %>
+           
             <div class="col-lg-4">
                 <!-- <form class="mb-30" action="">
                     <div class="input-group">
@@ -67,7 +71,13 @@
                             <h5>Total</h5>
                             <h5><span id="total"><%= totalAmount %></span></h5>
                         </div>
-                        <a  class="btn btn-block btn-primary font-weight-bold my-3 py-3" href="/api/order">Proceed To Checkout  </a>
+                        <% if(MyCart==0) {%>
+                            <a  class="btn btn-block btn-success font-weight-bold my-3 py-3" href="/">Back To Home PAge  </a>
+                            
+                            <% }else {%>
+                                <a  class="btn btn-block btn-primary font-weight-bold my-3 py-3" href="/api/order">Proceed To Checkout  </a>
+                                <% } %>
+                       
                         
                     </div>
                 </div>
@@ -108,7 +118,7 @@
                    
                 document.getElementById(proId).innerHTML=quantity+count
                 document.getElementById('total').innerHTML=response.total
-                // document.getElementById(proId+'a').innerHTML=(quantity+count)*price
+                document.getElementById(proId+'a').innerHTML=(quantity+count)*price
                
                 }
 

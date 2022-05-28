@@ -5,7 +5,12 @@ const jwt=require('jsonwebtoken');
 
 
 
+
 router.get('/',controller.AllProduct)
+router.get('/coo',(req,res)=>{
+    res.cookie('nuPlayer',false)
+    res.send('cook')
+})
 // router.get('/', async (req,res)=>{
 //     let cartCount=null
 //     let token=req.cookies.token
