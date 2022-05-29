@@ -141,6 +141,7 @@
     <script>
         $("#check-out-form").submit((e)=>{
             e.preventDefault()
+           
             $.ajax({
                 url:'/api/order',
                 method:'post',

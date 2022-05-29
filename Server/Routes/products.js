@@ -9,26 +9,26 @@ const {
 } = require("./verifyToken");
 const Product = require("../models/Product");
 const controller=require('../Controller/product');
-const multer=require('multer');
+// const multer=require('multer');
 
 
-const storage= multer.diskStorage({
+// const storage= multer.diskStorage({
  
-  destination:function(req,file,cb){
-  cb(null,"public/images/uploads/")
-  },
-  filename:function(req,file,cb){
-    let ext= path.extname(file.originalname)
-  cb(null,shortid.generate()+'-'+file.originalname)
-  }
-}) 
-const upload=multer({storage:storage})
+//   destination:function(req,file,cb){
+//   cb(null,"public/images/uploads/")
+//   },
+//   filename:function(req,file,cb){
+//     let ext= path.extname(file.originalname)
+//   cb(null,shortid.generate()+'-'+file.originalname)
+//   }
+// }) 
+// const upload=multer({storage:storage})
 
-//Products Category
+// //Products Category
 
-router.post("/create", verifyTokenAndAdmin,upload.array('productPictures'),controller.AddProduct);
+// router.post("/create", verifyTokenAndAdmin,upload.array('productPictures'),controller.AddProduct);
 
-router.post("/update/:id", verifyTokenAndAuthorization,upload.array('productPictures'),controller.UpdateProduct )
+// router.post("/update/:id", verifyTokenAndAuthorization,upload.array('productPictures'),controller.UpdateProduct )
 
 router.get("/find/:id",controller.GetOneProduct);
 

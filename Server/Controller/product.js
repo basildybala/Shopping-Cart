@@ -1,7 +1,7 @@
 
 const Product = require("../models/Product");
 const slugify=require('slugify');
-const { default: mongoose } = require("mongoose");
+// const { default: mongoose } = require("mongoose");
 
 
 exports.AddProduct=async (req,res)=>{

@@ -3,10 +3,11 @@ const CryptoJS = require("crypto-js");
 const jwt=require('jsonwebtoken');
 
 
+
 exports.UserRegistration=async  (req,res)=>{
     const newUser = new User({
         username: req.body.username,
-        email: req.body.email,
+        // email: req.body.email,
         password: CryptoJS.AES.encrypt(
           req.body.password,
           process.env.PASS_SEC
@@ -18,6 +19,9 @@ exports.UserRegistration=async  (req,res)=>{
         // res.status(201).json(savedUser);
         console.log(savedUser);
       } catch (err) {
+        console.log(err);
+        
+        
         res.status(500).json(err);
       }
 }
