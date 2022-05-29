@@ -30,21 +30,34 @@
             <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
         </a>
     </div>
-   
+    <div class="nav-c">
+        <a href="/api/cart" class="btn px-0 ml-3 cart">
+            <i class="fas fa-shopping-cart text-primary"></i>
+            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;" id="cart-count"><% if(count === null){ %> <p>0</p> <% } else { %> <p><%= count %></p> <% } %></span>
+        </a>
+    </div>  
     <div class="nav-b">
+        <% if(useR){ %>
+            
+            <div class="nav-link">
+                <a href="/api/order/my-orders">My Orders</a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="/api/auth/logout">Logout</a>
+            </div>
+        <% } else { %>    
         <div class="nav-link">
             <a href="/api/auth/login">Login</a>
         </div>
         <div class="nav-link">
             <a href="/api/auth/register">Regster</a>
         </div>
+        <% } %>
+
+        
     </div>
-    <div class="nav-c">
-        <a href="/api/cart" class="btn px-0 ml-3 cart">
-            <i class="fas fa-shopping-cart text-primary"></i>
-            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;" id="cart-count"><% if(count === null){ %> <p>0</p> <% } else { %> <p><%= count %></p> <% } %></span>
-        </a>
-    </div>
+   
 </div>
 
 
@@ -194,7 +207,7 @@
             method:'post',
             
             success:(response)=>{
-                console.log('hai');
+                
                 if(response.status){
                     
                     let count=$('#cart-count').text()
@@ -205,10 +218,11 @@
                     
                     alert('Same ITem Quantity Increased +1')
                     
-                }else{
+                }else if(response.login){
                     console.log('No cart' );
                     window.location = "/api/auth/login";
                 }
+                
                                          
             }
         })

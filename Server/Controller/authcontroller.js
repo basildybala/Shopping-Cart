@@ -113,3 +113,35 @@ exports.UserRegistrationPage=async (req,res)=>{
 
   }
 }
+
+exports.UserLogout=(req,res)=>{
+  res.cookie('token','',{maxAge:1})
+  res.redirect('/')
+}
+
+exports.userExist=(req,res,next)=>{
+  
+  const token=req.cookies.token
+  if (token) {
+    
+    jwt.verify(token, process.env.JWT_SEC,async (err, userr) =>{
+      if (err) {
+        console.log(err);
+        res.locals.users=null
+        next()
+      } else {
+        let user=await User.findById(userr.id)
+        console.log(user);
+        
+        res.locals.users=user;
+        // console.log(user);
+        next()
+      }
+    });
+
+  } else {
+    console.log('NO User');
+    res.locals.users=null;
+    next()
+  }
+}

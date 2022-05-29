@@ -64,7 +64,7 @@ exports.AddItemToCArt = async (req, res) => {
                     // res.send(CartU)
                 }
             } else {
-                console.log("No cart");
+                console.log("No s");
                 //user No cart Then Create One Cart
                 let proid = req.params.id;
                 const newCart = new Cart({
@@ -78,12 +78,12 @@ exports.AddItemToCArt = async (req, res) => {
                 res.status(200).json({ status: true });
             }
         } else {
-            console.log("No cart");
-            res.status(204).json({ status: false });
+            console.log("No cartss");
+            res.status(200).json({ login: true });
         }
     } catch (err) {
         console.log(err);
-        res.status(204).json({ status: false });
+        res.status(204).json({ login:true});
     }
 };
 

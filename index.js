@@ -11,6 +11,7 @@ const productRoutes=require('./Server/Routes/products')
 const authRoutes=require('./Server/Routes/auth')
 const categoryRoutes=require('./Server/Routes/category')
 const indexRoute=require('./Server/Routes/index')
+const {userExist} = require("./Server/Routes/verifyToken");
 
 
 const app=express();
@@ -42,18 +43,20 @@ app.set("view engine", "ejs")
 app.use('/public', express.static('public'))
 app.use(session({secret:'Key',resave:true,saveUninitialized:true,cookie:{maxAge:6000000}},));
 //Route SetUp
-app.use('/api/users',userRoutes)
-app.use('/api/auth',authRoutes)
-app.use('/api/products',productRoutes)
-app.use('/api/cart',cartRoutes)
-app.use('/api/order',orderRoutes)
-app.use('/api/category',categoryRoutes)
-app.use('/',indexRoute)
+app.use('/api/users',userExist,userRoutes)
+app.use('/api/auth',userExist,authRoutes)
+app.use('/api/products',userExist,productRoutes)
+app.use('/api/cart',userExist,cartRoutes)
+app.use('/api/order',userExist,orderRoutes)
+app.use('/api/category',userExist,categoryRoutes)
+app.use('/',userExist,indexRoute)
 
-app.get('*',(req,res)=>{
-
+app.get('*',(req,res,next)=>{
+    
     res.render('page-not-found')
 })
+
+// app.get('*',userExist)
 
 
 

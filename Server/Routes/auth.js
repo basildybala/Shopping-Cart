@@ -11,4 +11,8 @@ router.get("/register",controller.UserRegistrationPage);
 router.post("/login", controller.UserLogin);
 router.get("/login", controller.UserLoginPage);
 
+//Log Out User
+
+router.get('/logout',controller.UserLogout)
+
 module.exports = router;

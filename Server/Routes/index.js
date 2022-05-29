@@ -1,7 +1,7 @@
 const router=require('express').Router()
 const controller=require('../Controller/index')
 const jwt=require('jsonwebtoken');
-
+const {userExist} = require("./verifyToken");
 
 
 
