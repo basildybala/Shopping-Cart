@@ -123,6 +123,12 @@
                                 <label class="custom-control-label" for="directcheck">COD</label>
                             </div>
                         </div>
+                        <!-- <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="directcheck" value="stripe">
+                                <label class="custom-control-label" for="directcheck">Stripe</label>
+                            </div>
+                        </div> -->
                         <!-- <div class="form-group mb-4">
                             <div class="custom-control custom-radio">
                                 <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
@@ -154,7 +160,11 @@
                         alert('Razor Pay')
                         console.log('Razor Pay',response.razorpay);
                         razorPay(response.razorpay)
-                    }else{
+                    }else if(response.id){
+                        alert('stripe')
+                        console.log(response.id);
+                    }
+                    else{
                         alert('NO ITEM')
                     }
                    

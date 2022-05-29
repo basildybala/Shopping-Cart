@@ -13,6 +13,8 @@ var instance = new Razorpay({
     key_secret: process.env.RAZOR_PAY_SECRET_KEY,
   });
 
+let stripe =require('stripe')(process.env.STRIPE_PRIVATE_KEY)  
+
 // var instance = new Razorpay({
 //     key_id: 'YOUR_KEY_ID',
 //     key_secret: 'YOUR_KEY_SECRET',
@@ -118,6 +120,30 @@ exports.orderSumbit=async (req,res)=>{
           
 
             
+        }else if(req.body.payment==='stripe'){
+
+            const session=await stripe.checkout.sessions.create({
+                payment_method_type:['card'],
+                line_items:[
+                    {
+                        price_data:{
+                            currency:'inr',
+                            product_data:{
+                                id:products.cartItems,
+                                
+                            },
+                            unit_amount:totalAmount[0].total*100,
+
+                        },
+                        quantity:products.cartItems
+
+                    }
+                ],
+                mod:"payment",
+                success_url:'${/api/order/order-success}'
+
+            })
+            res.json({id:session.id})
         }
 
         
