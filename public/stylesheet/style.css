@@ -266,3 +266,8 @@ a{
     top: 0;
     z-index: 10;
 }
+.dropdown a{
+font-size: 16px;
+color: black;
+font-weight: 700;
+}

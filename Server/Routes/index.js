@@ -7,6 +7,7 @@ const {userExist} = require("./verifyToken");
 
 
 router.get('/',controller.AllProduct)
+router.post('/',controller.AllProduct)
 // router.get('/coo',(req,res)=>{
 //     res.cookie('nuPlayer',false)
 //     res.send('cook')
