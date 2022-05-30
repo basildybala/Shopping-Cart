@@ -29,13 +29,19 @@
             <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
             <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
         </a>
+
+        
     </div>
+ 
+      
     <div class="nav-c">
         <a href="/api/cart" class="btn px-0 ml-3 cart">
             <i class="fas fa-shopping-cart text-primary"></i>
-            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;" id="cart-count"><% if(count === null){ %> <p>0</p> <% } else { %> <p><%= count %></p> <% } %></span>
+            <span class="badge rounded-pill badge-notification bg-info" id="cart-count"><% if(count === null){ %> 0 <% } else { %> <%= count %> <% } %></span>
+            <!-- <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;" id="cart-count"><% if(count === null){ %> <p>0</p> <% } else { %> <><%= count %></p> <% } %></span> -->
         </a>
     </div>  
+    
     <div class="nav-b">
         <% if(useR){ %>
             
@@ -54,8 +60,17 @@
             <a href="/api/auth/register">Regster</a>
         </div>
         <% } %>
-
-        
+        <ul>
+        <li class="nav-item text-center mx-2 mx-lg-1">
+            <a class="nav-link" href="#!">
+              <div>
+                <i class="fas fa-shopping-cart text-primary fa-lg mb-1"></i>
+                <span class="badge rounded-pill badge-notification bg-info" id="cart-count"><% if(count === null){ %> 0 <% } else { %> <%= count %> <% } %></span>
+              </div>
+              Carts
+            </a>
+          </li>
+        </ul>
     </div>
    
 </div>
@@ -86,6 +101,19 @@
         </div>
     </div>
 </div>
+
+<!-------------------------Search-->
+<div class="nav-d d-flex justify-content-center align-content-center">
+    <div class="input-group">
+        <div class="form-outline">
+          <input type="search" id="form1" class="form-control" placeholder="Search" />
+          <!-- <label class="form-label" for="form1">Search</label> -->
+        </div>
+        <button type="button" style="height: 38px;" class="btn btn-primary">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+  </div>
 <!-----------PRODUCTS----->
 
  <!-- Products Start -->
