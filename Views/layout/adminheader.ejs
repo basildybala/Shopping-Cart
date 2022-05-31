@@ -8,38 +8,82 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">    
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous"> -->
      <!-- Font Awesome -->
      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
      <!-- Libraries Stylesheet -->
  <link href="lib/animate/animate.min.css" rel="stylesheet">
  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/public/stylesheet/style.css">
-    <title>Admin</title>
+    <title>Shopping Cart</title>
 </head>
 
+
 <body>
-    <div class="nav-bar">
-        <div class="nav-a">
-            <a href="/" class="text-decoration-none d-block ">
-                <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
-                <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
-            </a>
+
+<div class="nav-bar ">
+    <div class="nav-a nav-b">
+        <a href="/" class="text-decoration-none d-block lg-4 ">
+            <span class="h1 text-uppercase text-light bg-primary px-2">Admin</span>
+            <span class="h1 text-uppercase text-light bg-info px-2 ml-n1">Area</span>
+        </a>
+        <% if(useR){ %>
+        <div class="nav-link">
+            <i class="fa-brands fa-first-order-alt"></i>
+            <a href="/admin">Admin Home</a>
         </div>
-        <div class="nav-b">
+        
+        
+        <!-- <div class="nav-link">
+            <i class="fa-solid fa-cart-arrow-down"></i>
+            <a href="/api/cart">My Cart</a>
+        </div> -->
+        <div class="nav-link">
+            
+            <a href="/api/auth/logout">Logout</a>
+        </div>
+        <div class="nav-link">
+            
+            <a href="/api/cart" class="">
+                <i class="fas fa-shopping-cart text-primary"></i>
+                <span class="badge rounded-pill badge-notification bg-info" id="cart-count"></span>
+               
+            </a>
+       
+    </div>
+        <div class="nav-link">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <a href="/api/auth/logout">Logout</a>
+        </div>
+
+        <% } else { %> 
+            <a href="/api/cart" class="">
+                <i class="fas fa-shopping-cart text-primary"></i>
+                <span class="badge rounded-pill badge-notification bg-info" id="cart-count"><% if(count === null){ %> 0 <% } else { %> <%= count %> <% } %></span>
+                <!-- <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;" id="cart-count"><% if(count === null){ %> <p>0</p> <% } else { %> <><%= count %></p> <% } %></span> -->
+            </a>
             <div class="nav-link">
+                <i class="fa-solid fa-user-tie"></i>
+               
                 <a href="/api/auth/login">Login</a>
             </div>
             <div class="nav-link">
-                <a href="/api/auth/register">Regster</a>
+                <i class="fa-solid fa-user-plus"></i>
+               
+                <a href="/api/auth/register">Register</a>
             </div>
-        </div>
-        <div class="nav-c">
-            <a href="" class="btn px-0 ml-3">
-                <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
-            </a>
-        </div>
+        <% } %>
+        
     </div>
+
+
+    </div>
+   
+</div>
+
+<br>

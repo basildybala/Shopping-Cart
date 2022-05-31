@@ -11,6 +11,7 @@ const productRoutes=require('./Server/Routes/products')
 const authRoutes=require('./Server/Routes/auth')
 const categoryRoutes=require('./Server/Routes/category')
 const indexRoute=require('./Server/Routes/index')
+const adminRoute=require('./Server/Routes/admin')
 const {userExist} = require("./Server/Routes/verifyToken");
 
 
@@ -50,6 +51,7 @@ app.use('/api/cart',userExist,cartRoutes)
 app.use('/api/order',userExist,orderRoutes)
 app.use('/api/category',userExist,categoryRoutes)
 app.use('/',userExist,indexRoute)
+app.use('/admin',userExist,adminRoute)
 
 app.get('*',(req,res,next)=>{
     
