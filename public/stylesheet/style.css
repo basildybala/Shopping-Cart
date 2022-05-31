@@ -271,3 +271,33 @@ font-size: 16px;
 color: black;
 font-weight: 700;
 }
+
+
+
+
+/* .products {} */
+/* .products:after, .products:before{clear: both; content: '\0020'; display: block; visibility: hidden; width: 0; height: 0;}
+.products .product {max-width: 205px;}
+
+.product:after, .product:before{clear: both; content: '\0020'; display: block; visibility: hidden; width: 0; height: 0;}
+.product {border: 1px solid #ccc;border-radius: 6px; margin: 0 auto; margin-bottom: 20px;}
+.product .image {position: relative;}
+.product .image-more {margin-top: 15px;}
+.product .image-more img{border: 1px solid #ccc;max-height: 85px;margin-bottom: 25px;}
+.product .image .buttons {position: absolute;top: 0px;left: 0;}
+.product .image .buttons a {margin-bottom: 10px;} */
+ .caption {padding: 10px 15px;display: flex;flex-direction: column;justify-content: center;align-items: center;}
+ .image .hot {position: absolute;top: 7px;right: 10px;border-radius: 50%; background: #F83C3C;padding: 10px 0 10px 7px;height: 40px; width: 40px;color: #fff;font-size: 13px;line-height: 1.7;}
+.name {border-bottom: 1px solid #eee;}
+.name h3{font-weight: 500;font-size: 17px;color: #666;margin-top: 5px ;font-family: 'Courgette', cursive;padding-bottom: 2px;}
+.info li{margin: 0;}
+.price {font-size: 19px;margin-bottom: 5px ;color:#72B649;; font-family: 'Courgette', cursive;}
+.price span{color: #aaa;margin-left: 10px;text-decoration: line-through;font-size: 17px;} 
+/* .product .rating{margin: 10px 0;}
+.product .rating span {margin-right: 5px;font-size: 13px;}
+.product .options {margin: 10px 0;}
+.product .options select{border: 1px solid #eee; width: 100%;}
+.product input.form-inline {border-radius: 4px;border: 1px solid #ccc;padding: 4px 6px;width: 40px;}
+.product .share .share-btn {margin-right: 25px;padding-top: 20px;}
+
+.product-desc{margin: 50px 0;} */

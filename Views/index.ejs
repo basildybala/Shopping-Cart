@@ -220,7 +220,15 @@
             </div>
              <div class="col-lg-9">  
         <div class="row"> 
-            
+           
+
+
+
+
+
+
+
+
         <% AllProducts.forEach (function (p){%>
         <!-- <a href="/api/products/find/<%= p._id %>" class="products">
             <div class="pro-img">
@@ -236,12 +244,6 @@
         </div>   -->
         
         
-
-
-
-
-
-        
         <div class="col-md-4">
             <div class="card mb-4 product-wap rounded-0">
             
@@ -255,18 +257,34 @@
                         </ul>
                     </div> -->
                 </div>
-                <div class="card-body d-flex flex-column">
+                <div class="caption">
+                    <div class="name"><h3><a href="product.html"><%= p.title %></a></h3></div>
+                    <div class="price"><%= p.price %><span>$98</span></div>
+                    <button onclick="addToCart('<%= p._id %>')" class="btn btn-primary ">Add To Cart</button>
+                    <a href="/api/products/find/<%= p._id %>" class="mt-1 btn btn-success">View Product</a>
+                    
+                </div>
+                <div class="hot">
+                    <span></span>
+                </div>
+                <!-- <div class="card-body d-flex flex-column">
                     <a href="/api/products/find/<%= p._id %>" class="h3 text-decoration-none"><%= p.title %></a>
 
                     
-                    <button onclick="addToCart('<%= p._id %>')" class="btn btn-primary">Add To Cart</button>
+                   
                     
                     <p class="text-center mb-0"><%= p.price %></p>
                    
-                </div>
+                </div> -->
             
             </div>
         </div>
+
+
+
+
+        
+        
         
         <% });%>
             </div>
