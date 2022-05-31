@@ -1,15 +1,120 @@
 <%- include('../layout/adminheader'); -%>
+<style>
+  input {
+    height: 60px;
+  }
+</style>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-8 align-items-center" style="margin-bottom: 30px">
+      <div class="heading text-center">
+        <h4 class="">Add Products</h4>
+      </div>
+
+      <div class="formm">
+        <form class="mt-2" id="ff1" method="post" action="/admin/add-product/">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Product Name :"
+              name="title"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Desc :"
+              name="desc"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <div class="cate-array">
+              <div class="cate-div">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Categories :"
+                  name="categories"
+                  required
+                />
+              </div>
+            </div>
+           
+          </div>
+          <button id="add-label" class="btn btn-success mb-2">Add more Categories</button>
+          
+          <div class="form-group">
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Selling Price :"
+              name="price"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Listing Price :"
+              name="listingprice"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Quantity :"
+              name="qty"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="file"
+              class="form-control"
+              placeholder="Product Images :"
+              name="productPictures"
+              multiple
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-success">Add Product</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  
+    let addBtn = document.getElementById('add-label');
+    let cateArray= document.querySelector('.cate-array');
+    let CateDiv = document.querySelectorAll('.cate-div')[0];
+
+addBtn.addEventListener('click', function(){
+  let value = CateDiv.cloneNode(true);
+  let input = value.getElementsByTagName('input')[0];
+  input.value = '';
+  cateArray.appendChild(value);
+});
 
 
+//     let addIngredientsBtn = document.getElementById('addIngredientsBtn');
+// let ingredientList = document.querySelector('.ingredientList');
+// let ingredeintDiv = document.querySelectorAll('.ingredeintDiv')[0];
 
-
-
-
-
-
-
-
-
+// addIngredientsBtn.addEventListener('click', function(){
+//   let newIngredients = ingredeintDiv.cloneNode(true);
+//   let input = newIngredients.getElementsByTagName('input')[0];
+//   input.value = '';
+//   ingredientList.appendChild(newIngredients);
+// });
+</script>
 
 
 <%- include('../layout/adminfooter'); -%>
