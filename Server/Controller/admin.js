@@ -43,6 +43,10 @@ exports.addProductPost=async (req,res)=>{
             path=path.substring(0,path.lastIndexOf(","))
             var productPictures=path.split(',')
         }
+
+        let discount=(listingprice-price)/listingprice*100
+        let Discount=Math.round(discount)
+
         const product= new Product({
             title,
             slug:slugify(title),
@@ -52,7 +56,7 @@ exports.addProductPost=async (req,res)=>{
             qty,
             instock,
             productPictures,
-            
+            discount:Discount,
             categories,
             color,
             size,
@@ -89,6 +93,14 @@ exports.editProduct=async (req,res)=>{
 exports.editProductPost=async (req,res)=>{
     try {
         let proId=req.params.id
+
+
+        let firstBody=req.body
+        let Discount=(req.body.listingprice-req.body.price)/req.body.listingprice*100
+        let discount=Math.round(Discount)
+        let body={...firstBody,discount}
+
+
         if(req.files.length >0){
             let Pictures =req.body.productPictures
             let path = Pictures+','
@@ -97,7 +109,9 @@ exports.editProductPost=async (req,res)=>{
             })
             path=path.substring(0,path.lastIndexOf(","))
              let productPictures =path.split(',')
-             let body=req.body
+            //  let body=req.body
+
+
             let finalBody={...body,productPictures}
             console.log(finalBody);
             const updateProdoct = await Product.findByIdAndUpdate(proId,
@@ -107,10 +121,12 @@ exports.editProductPost=async (req,res)=>{
                 { new: true }
               );
               res.status(200).redirect('/admin/all-products');
-        }else{
+
+        }
+        else{
             const updateProdoct = await Product.findByIdAndUpdate(proId,
                 {
-                  $set: req.body,
+                  $set:body,
                 },
                 { new: true }
               );
@@ -134,7 +150,8 @@ exports.deleteProduct=async (req,res)=>{
         await Product.findByIdAndDelete(req.params.id);
         res.status(200).redirect("/admin/all-products");
       } catch (err) {
-        res.status(500).json(err);
+        console.log(error);
+        res.status(500).render('page-not-found')
       }
 }
 

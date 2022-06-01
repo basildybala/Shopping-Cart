@@ -325,16 +325,16 @@
    <div class="col-md-3">
             <div class="card mb-4 product-wap rounded-0 listing listing-radius listing-success">
                 
-                <div class="card position-relative">
+                <div class="card position-relative" >
                     <img class="card-img rounded-0 img-fluid" src="/<%= p.productPictures[0] %>" alt="" srcset="">
                    
                     <div class="shape position-absolute mr-0">
-                        <div class="shape-text">50%</div>
+                        <div class="shape-text"><%= p.discount %>%</div>
                     </div>
                 </div>
                 <div class="caption">
                     <div class="name"><h3><a href="product.html"><%= p.title %></a></h3></div>
-                    <div class="price"><%= p.price %><span>$98</span></div>
+                    <div class="price">$ <%= p.price %><span><%= p.listingprice %></span></div>
                     <button onclick="addToCart('<%= p._id %>')" class="btn btn-primary ">Add To Cart</button>
                     <a href="/api/products/find/<%= p._id %>" class="mt-1 btn btn-success">View Product</a>
                     

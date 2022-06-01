@@ -13,6 +13,7 @@ const ProductSchema = new mongoose.Schema(
     qty: { type: Number, required: true },
     instock:{type:Boolean,default:true},
     productPictures:{type:Array},
+    discount:{type:Number}
     // productPictures: [ { img: { type: String } }],
   },
   { timestamps: true }
