@@ -3,7 +3,28 @@
   input {
     height: 60px;
   }
+  .cate-div input{
+    width: 300px;
+  }
+  .images{
+    display: flex;
+   padding: 10px;
+   margin-bottom: 15px;
+  }
+  .Images-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 10%);
+}
+  .Images-1 img{
+    width: 150px;
+    object-fit: cover;
+  }
 </style>
+
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-8 align-items-center" style="margin-bottom: 30px">
@@ -12,13 +33,14 @@
       </div>
 
       <div class="formm">
-        <form class="mt-2" id="ff1" method="post" action="/admin/add-product/">
+        <form class="mt-2" id="ff1" method="post" enctype="multipart/form-data" action="/admin/edit-product/<%= product._id %>">
           <div class="form-group">
             <input
               type="text"
               class="form-control"
               placeholder="Product Name :"
               name="title"
+              value="<%= product.title %>"
               required
             />
           </div>
@@ -27,32 +49,60 @@
               type="text"
               class="form-control"
               placeholder="Desc :"
+              value="<%= product.desc %>"
               name="desc"
               required
             />
           </div>
           <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Size :"
+              value="<%= product.size %>"
+              name="size"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Color :"
+              value="<%= product.color %>"
+              name="color"
+              required
+            />
+          </div>
+          <div class="form-group">
             <div class="cate-array">
-              <div class="cate-div">
+              <% for(var i=0; i<product.categories.length; i++){%>
+              <div class="cate-div d-flex">
+                
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control m-1 "
                   placeholder="Categories :"
                   name="categories"
+                  value="<%= product.categories[i] %>"
                   required
                 />
+                <button class="btn btn-danger remove-btn m-2"  >Delete</button>
               </div>
+              <% }%>
             </div>
            
           </div>
-          <button id="add-label" class="btn btn-success mb-2">Add more Categories</button>
+          <button id="add-label" class="btn btn-success p-2 mb-2">Add more Categories</button>
           
           <div class="form-group">
+            <label for="">Selling Price</label>
             <input
               type="number"
               class="form-control"
               placeholder="Selling Price :"
               name="price"
+              value="<%= product.price %>"
               required
             />
           </div>
@@ -62,6 +112,7 @@
               class="form-control"
               placeholder="Listing Price :"
               name="listingprice"
+              value="<%= product.listingprice %>"
               required
             />
           </div>
@@ -71,37 +122,99 @@
               class="form-control"
               placeholder="Quantity :"
               name="qty"
+              value="<%= product.qty %>"
               required
             />
           </div>
+          <div class="images">
+            
+            <% for(var i=0; i<product.productPictures.length; i++){%>
+              <div class="Images-1">
+                <img src="/<%= product.productPictures[i] %>" alt="" srcset="">
+                <input type="text" name="productPictures" value="<%= product.productPictures[i] %>" hidden>
+                <button class="btn btn-danger remove-btn m-2"  >Delete</button>
+              </div>
+              
+              <% }%>
+          </div>
           <div class="form-group">
+            
+
             <input
               type="file"
               class="form-control"
               placeholder="Product Images :"
               name="productPictures"
               multiple
-              required
+              
             />
+            
           </div>
-          <button type="submit" class="btn btn-success">Add Product</button>
+          <button type="submit" class="btn btn-success">Edit Product</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+
+
+<!-- <div class="row">
+  <div class="col-lg-6">
+    
+<div class="form-group">
+  <div class="cate-array">
+    <% for(var i=0; i<product.categories.length; i++){%>
+    <div class="cate-div" id="<%= product.categories[i] %>">
+      
+      <input
+      
+        type="text"
+        class="form-control"
+        placeholder="Categories :"
+        name="categories"
+        value="<%= product.categories[i] %>"
+        required
+      />
+      <button class="btn btn-danger d-grid remove-btn"  >Delete</button>
+     
+    </div>
+    <% }%>
+  </div>
+ 
+</div>
+
+</div>
+</div> -->
+
+
 <script>
   
     let addBtn = document.getElementById('add-label');
     let cateArray= document.querySelector('.cate-array');
     let CateDiv = document.querySelectorAll('.cate-div')[0];
 
-addBtn.addEventListener('click', function(){
+addBtn.addEventListener('click', function(e){
+  e.preventDefault()
   let value = CateDiv.cloneNode(true);
   let input = value.getElementsByTagName('input')[0];
   input.value = '';
   cateArray.appendChild(value);
 });
+
+// function remove(el){
+//   var element =el;
+//   element.delete()
+// }
+$(document).on('click','.remove-btn',function(e){
+  e.preventDefault();
+  let rowItem=$(this).parent();
+  $(rowItem).remove();
+})
+
+// function remoov(id){
+//   id.remove();
+// }
 
 
 //     let addIngredientsBtn = document.getElementById('addIngredientsBtn');

@@ -22,7 +22,7 @@
                     <tbody class="align-middle">
                         <% MyCart.forEach (function (c){%>
                         <tr>
-                            <td class="align-middle"><img src="/public/images/<%= c.product.productPictures[0] %>" alt="" style="width: 50px;"> <%= c.product.title %></td>
+                            <td class="align-middle"><img src="/<%= c.product.productPictures[0] %>" alt="" style="width: 50px;"> <%= c.product.title %></td>
                             <td class="align-middle"><%= c.product.price %></td>
                             <td class="align-middle">
                                 <div class="input-group quantity mx-auto" style="width: 100px;">
