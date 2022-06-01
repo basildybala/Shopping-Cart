@@ -19,11 +19,13 @@ exports.homePage=async (req,res)=>{
         //Total Sales Amount Calculation
         const income = await Order.aggregate([{ $project: {sales: "$totalAmount",},}, { $group: {_id: null,total: { $sum: "$sales" },}, },]);
           let totalIncome=income[0].total;
-        let totalSales=await Order.count();  
+        let orders=await Order.find().sort({_id:-1});  
+        let totalSales=orders.length
+       
           
 
         
-        res.render('admin/admin',{totalCountUsers,userLcount,totalIncome,totalSales})
+        res.render('admin/admin',{totalCountUsers,userLcount,totalIncome,totalSales,orders})
     } catch (error) {
         console.log(error);
         res.status(500).render('page-not-found')
