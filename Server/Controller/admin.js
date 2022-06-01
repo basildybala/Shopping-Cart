@@ -1,13 +1,32 @@
 const Product = require("../models/Product");
+const User = require("../models/User");
+const Order = require("../models/Order");
 const slugify=require('slugify');
 
 //ADMIN HOME PAGE
 exports.homePage=async (req,res)=>{
     try {
         
-        res.render('admin/admin')
-    } catch (error) {
+
+        const date = new Date();
+        const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
+        const thisMonth = new Date(date.setMonth(date.getMonth() - 1));
+        //Users JOIN Count
+        let lastMonthCount=await User.aggregate([{$match:{createdAt:{$gte:lastMonth}}},])
+        let MonthCount=await User.aggregate([{$match:{createdAt:{$gte:thisMonth}}},])
+        let userLcount=lastMonthCount.length          
+        let totalCountUsers=await User.count()
+        //Total Sales Amount Calculation
+        const income = await Order.aggregate([{ $project: {sales: "$totalAmount",},}, { $group: {_id: null,total: { $sum: "$sales" },}, },]);
+          let totalIncome=income[0].total;
+        let totalSales=await Order.count();  
+          
+
         
+        res.render('admin/admin',{totalCountUsers,userLcount,totalIncome,totalSales})
+    } catch (error) {
+        console.log(error);
+        res.status(500).render('page-not-found')
     }
 }
 
@@ -20,6 +39,7 @@ exports.allProducts=async (req,res)=>{
         res.render('admin/all-product',{products})
     } catch (error) {
         console.log(error);
+        res.status(500).render('page-not-found')
     }
 }
 //ADD PRODUCTS
@@ -28,6 +48,7 @@ exports.addProduct=async (req,res)=>{
     try {  
         res.render('admin/add-product')
     } catch (error) {
+        console.log(error);
         res.status(500).render('page-not-found')
     }
 }
