@@ -1,0 +1,106 @@
+<%- include('../layout/adminheader'); -%>
+<style>
+    .card img {
+    width: 151px;
+    height: 180px;
+    margin: auto;
+    max-height: 228px;
+    object-fit: cover;
+}
+
+</style>
+
+}
+
+
+
+
+<div class="container-fluid d-flex flex-column">
+    <div class="row j">
+        <div class="col-lg-12 ">
+            <div class="heading align-items-center">
+                <h4><%= order.name %> Order Details</h4>
+            </div> 
+        </div>
+    </div>
+    <div class="row">
+        
+        <% order.products.forEach (function (p){%>
+            <div class="col-md-2">
+                     <div class="card mb-4 product-wap rounded-0 listing listing-radius listing-success">
+                         
+                         <div class="card position-relative" >
+                             <img class="card-img rounded-0 img-fluid" src="/<%= p.proPic[0] %>" alt="" srcset="">
+                            
+                             
+                         </div>
+                         <div class="caption">
+                             <div class="name"><h3><a href="product.html"><%= p.productName %></a></h3></div>
+                             <div class="price">Price:  $ <%= p.price %></div>
+                             <div class="price">Qty: <%= p.quantity %></div>
+                             <div class="price">Total : $ <%= p.total %></div>
+                             
+                             <a href="/api/products/find/<%= p.proId %>" class="mt-1 btn btn-primary">View Product</a>
+                             
+                         </div>
+                         <div class="hot">
+                             <span></span>
+                         </div>
+                       
+                     
+                     </div>
+                 </div>        
+                 <% });%>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="widget wid-categories">
+                <div class="heading"><h4>Order Details</h4></div>
+                <div class="content">
+                  <ul>
+                    <li>Name : <%= order.name %></li>
+                    <li>User Id : <%= order.userId %></li>
+                    <li>Order Id : <%= order.orderShortId %></li>
+                    <li>Total AMount : <%= order.totalAmount %></li>
+                    <li>Status : <%= order.status %></li>
+                    <li>Payment : <%= order.payment %></li>
+                  </ul>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-6">
+            <div class="widget wid-categories">
+                <div class="heading"><h4>Order Person Details</h4></div>
+                <div class="content">
+                  <ul>
+                    <li>Name : <%= order.name %></li>
+                    <li>Address : <%= order.address %></li>
+                    <li>Mobile No : <%= order.mobileno %></li>
+                    <li>Pincode : <%= order.pincode %></li>
+                    <li>Order Date : <%= order.createdAt %></li>
+                    <li>Payment : <%= order.payment %></li>
+
+                  </ul>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include('../layout/userfooter'); -%>

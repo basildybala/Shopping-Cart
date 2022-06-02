@@ -41,6 +41,12 @@ router.post('/edit-product/:id',upload.array('productPictures'),controller.editP
 //Delete Product
 router.get('/delete-product/:id',controller.deleteProduct)
 
+//USERS ORDER STATUS CHANGE
+router.post('/order-status',controller.orderStatusChange)
+
+//ORDER DETAILS
+router.get('/order-details/:id',controller.orderDetails)
+
 
 
 

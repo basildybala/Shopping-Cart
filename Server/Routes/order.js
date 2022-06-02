@@ -25,6 +25,9 @@ router.get("/my-orders",verifyToken, controller.myOrders);
 
 router.get("/order-success",verifyToken, controller.orderSuccess);
 
+router.get("/edit-order/:id",verifyToken, controller.editOrderGet);
+router.post("/edit-order/:id",verifyToken, controller.editOrderPost);
+
 
 
 
@@ -32,18 +35,7 @@ router.get("/order-success",verifyToken, controller.orderSuccess);
 
 //UPDATE
 router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    const updatedOrder = await Order.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updatedOrder);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+ 
 });
 
 //DELETE

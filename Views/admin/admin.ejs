@@ -1,7 +1,8 @@
 <%- include('../layout/adminheader'); -%>
-
+  
+ 
 <style>
-    .card {
+  .card {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -14,140 +15,147 @@
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
     margin-right: 10px;
     height: 165px;
-}
-.bg-gradient-primary {
-    background-image: linear-gradient(195deg, #EC407A 0%, #D81B60 100%);
-}
-.bg-gradient-dark {
+  }
+  .bg-gradient-primary {
+    background-image: linear-gradient(195deg, #ec407a 0%, #d81b60 100%);
+  }
+  .bg-gradient-dark {
     background-image: linear-gradient(195deg, #42424a 0%, #191919 100%);
-}
-.bg-gradient-success {
-    background-image: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
-}
-.bg-gradient-info {
-    background-image: linear-gradient(195deg, #49a3f1 0%, #1A73E8 100%);
-}
-.shadow-dark {
-    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(64, 64, 64, 0.4) !important;
-}
-.icon-lg {
+  }
+  .bg-gradient-success {
+    background-image: linear-gradient(195deg, #66bb6a 0%, #43a047 100%);
+  }
+  .bg-gradient-info {
+    background-image: linear-gradient(195deg, #49a3f1 0%, #1a73e8 100%);
+  }
+  .shadow-dark {
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
+      0 7px 10px -5px rgba(64, 64, 64, 0.4) !important;
+  }
+  .icon-lg {
     width: 64px;
     height: 64px;
     display: flex;
     justify-content: center;
     align-items: center;
     top: -25px;
-}
-.icon-lg i {
+  }
+  .icon-lg i {
     /* top: 31%; */
     font-size: 1.5rem;
     position: absolute;
     color: #fff;
-}
-.border-radius-xl {
+  }
+  .border-radius-xl {
     border-radius: 0.75rem;
-}
-hr.horizontal {
+  }
+  hr.horizontal {
     background-color: transparent;
-}
-
+  }
 </style>
-<br>
-<br>
+<br />
+<br />
 <div class="container mt-3">
-    <div class="row">
-        <div class="col-lg-3">
-            <div class="widget wid-categories">
-                <div class="heading"><h4>Products</h4></div>
-                <div class="content">
-                    <ul>
-                        <li><a href="/admin/all-products">All Products</a></li>
-                        <li><a href="/admin/add-product">Add Product</a></li>
-                        <li><a href="/admin/all-product">Add Category</a></li>
-                        
-                        
-                        <li><a href="#">Kids Fashion</a></li>
-                        
-                           
-                    </ul>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="widget wid-categories">
+        <div class="heading"><h4>Products</h4></div>
+        <div class="content">
+          <ul>
+            <li><a href="/admin/all-products">All Products</a></li>
+            <li><a href="/admin/add-product">Add Product</a></li>
+            <li><a href="/admin/all-product">Add Category</a></li>
+
+            <li><a href="#">Kids Fashion</a></li>
+          </ul>
         </div>
-        
-        
-            
-        
-            <div class="col-lg-3 col-sm-6 mb-xl-0 mt-4 ">
-                <div class="card">
-                  <div class="card-header p-3 pt-2 mr-2">
-                    <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                        
-                        <i class="fa-solid fa-sack-dollar"></i>
-                    </div>
-                    <div class="text-end pt-1">
-                      <p class="text-sm mb-0 text-capitalize">Tottal Money</p>
-                      <h4 class="mb-0">$<%= totalIncome %></h4>
-                    </div>
-                  </div>
-                  
-                  <div class="card-footer p-3">
-                    <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than lask week</p>
-                  </div>
-                </div>
-            </div>
-              <div class="col-lg-3 col-sm-6 mb-xl-0 mt-4">
-                <div class="card">
-                  <div class="card-header p-3 pt-2">
-                    <div class="icon icon-lg icon-shape bg-gradient-info shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div class="text-end pt-1">
-                      <p class="text-sm mb-0 text-capitalize">Tottal Users</p>
-                      <h4 class="mb-0"><%= totalCountUsers %></h4>
-                    </div>
-                  </div>
-                  <hr class="dark horizontal my-0">   
-                  <div class="card-footer p-3">
-                    <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+ <%= userLcount %> </span>This month joined Users</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 mt-4">
-                <div class="card">
-                  <div class="card-header p-3 pt-2">
-                    <div class="icon icon-lg icon-shape bg-gradient-primary shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                      <i class="fa-solid fa-calendar"></i>
-                    </div>
-                    <div class="text-end pt-1">
-                      <p class="text-sm mb-0 text-capitalize">Total Sales</p>
-                      <h4 class="mb-0"><%= totalSales %></h4>
-                    </div>
-                  </div>
-                  <hr class="dark horizontal my-0">
-                  <div class="card-footer p-3">
-                    <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday</p>
-                  </div>
-                </div>
-              </div>
-            </div>  
-              <!----------------------------------------Next Row--------------------------------------------->
-             <div class="div row"> 
-              <div class="col-lg-3">
-                <div class="widget wid-categories">
-                    <div class="heading"><h4>Orders</h4></div>
-                    <div class="content">
-                        <ul>
-                            <li><a href="/admin/add-product">Add Product</a></li>
-                            <li><a href="/admin/all-product">Show All Products</a></li>
-                            
-                            <li><a href="#">Kids Fashion</a></li>
-                            
-                               
-                        </ul>
-                    </div>
-                </div>
-            </div>
-              <!-- <div class="col-lg-9">
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6 mb-xl-0 mt-4">
+      <div class="card">
+        <div class="card-header p-3 pt-2 mr-2">
+          <div
+            class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute"
+          >
+            <i class="fa-solid fa-sack-dollar"></i>
+          </div>
+          <div class="text-end pt-1">
+            <p class="text-sm mb-0 text-capitalize">Total Money</p>
+            <h4 class="mb-0">$<%= totalIncome %></h4>
+          </div>
+        </div>
+
+        <div class="card-footer p-3">
+          <p class="mb-0">
+            <span class="text-success text-sm font-weight-bolder">+55% </span
+            >than lask week
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6 mb-xl-0 mt-4">
+      <div class="card">
+        <div class="card-header p-3 pt-2">
+          <div
+            class="icon icon-lg icon-shape bg-gradient-info shadow-primary text-center border-radius-xl mt-n4 position-absolute"
+          >
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="text-end pt-1">
+            <p class="text-sm mb-0 text-capitalize">Total Users</p>
+            <h4 class="mb-0"><%= totalCountUsers %></h4>
+          </div>
+        </div>
+        <hr class="dark horizontal my-0" />
+        <div class="card-footer p-3">
+          <p class="mb-0">
+            <span class="text-success text-sm font-weight-bolder"
+              >+ <%= userLcount %> </span
+            >This month joined Users
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6 mt-4">
+      <div class="card">
+        <div class="card-header p-3 pt-2">
+          <div
+            class="icon icon-lg icon-shape bg-gradient-primary shadow-info text-center border-radius-xl mt-n4 position-absolute"
+          >
+            <i class="fa-solid fa-calendar"></i>
+          </div>
+          <div class="text-end pt-1">
+            <p class="text-sm mb-0 text-capitalize">Total Sales</p>
+            <h4 class="mb-0"><%= totalSales %></h4>
+          </div>
+        </div>
+        <hr class="dark horizontal my-0" />
+        <div class="card-footer p-3">
+          <p class="mb-0">
+            <span class="text-success text-sm font-weight-bolder">+5% </span
+            >than yesterday
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!----------------------------------------Next Row--------------------------------------------->
+  <div class="div row">
+    <div class="col-lg-3">
+      <div class="widget wid-categories">
+        <div class="heading"><h4>Orders</h4></div>
+        <div class="content">
+          <ul>
+            <li><a href="/admin/add-product">Add Product</a></li>
+            <li><a href="/admin/all-product">Show All Products</a></li>
+
+            <li><a href="#">Kids Fashion</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-lg-9">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
                     <div class="chart">
@@ -157,82 +165,77 @@ hr.horizontal {
                 </div>
              </div> -->
 
+    <!-- DATA TABLE-->
 
-                      <!-- DATA TABLE-->
-                      
-                                <div class="col-lg-9">
-                                    <div class="heading">
-                                    <h4 class="">Latest Orders</h4>
-                                     </div>
-                                    <div class="table-responsive table-responsive-data2">
-                                        <table class="table table-data2">
-                                            <thead>
-                                                <tr>
-                                                    <th>name</th>
-                                                    
-                                                    <th>date</th>
-                                                    <th>status</th>
-                                                    <th>price</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                              <% orders.forEach (function (p){%>
-                                                <tr class="tr-shadow">
-                                                  
-                                                    <td><%= p.name %></td>
-                                                    
-                                                    <td><%= p.createdAt %></td>
-                                                    <td>
-                                                        <span class="status--process"><%= p.status %></span>
-                                                    </td>
-                                                    <td><%= p.totalAmount %></td>
-                                                    <td>
-                                                        <div class="table-data-feature">
-                                                            <a href=""><i class="fa-solid fa-pen-to-square"></i></a>
-                                                            <a href=""><i class="fa-solid fa-circle-minus"></i></a>
-                                                        </div>
-                                                    </td>
-                                                   
-                                                </tr>
-                                                <% });%>
-                                                
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            
-                    <!-- END DATA TABLE-->
+    <div class="col-lg-9">
+      <div class="heading">
+        <h4 class="">Latest Orders</h4>
+      </div>
+      <div class="table-responsive table-responsive-data2">
+        <table class="table table-data2">
+          <thead>
+            <tr>
+              <th>name</th>
+              <th>date</th>
+              <th>status</th>
+              <th>price</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% orders.forEach (function (p){%>
+            <tr class="tr-shadow">
+              <td><%= p.name %></td>
 
+              <td><%= p.createdAt %></td>
+              <!-----------------------------Order Status Updation--------------------------------------->
+              <td>
+              
 
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= p.status %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <form   class="sortForm" action="/admin/order-status" method="post">
+              <input type="text" name="status" value="Orderd" class="d-none">
+              <input type="text" name="orderId" value="<%= p._id %>" class="d-none">
+              <button type="submit" class="dropdown-item">Orderd</button>
+            </form>
+            <form   class="sortForm" action="/admin/order-status" method="post">
+              <input type="text" name="status" value="Shipped" class="d-none">
+              <input type="text" name="orderId" value="<%= p._id %>" class="d-none">
+              <button type="submit" class="dropdown-item">Shipped</button>
+            </form>
+            <form   class="sortForm" action="/admin/order-status" method="post">
+              <input type="text" name="status" value="Delivered" class="d-none">
+              <input type="text" name="orderId" value="<%= p._id %>" class="d-none">
+              <button type="submit" class="dropdown-item">Delivered</button>
+            </form>
+            <!-- <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a> -->
+          </div>
+        </div>
+              </td>
+              <!-----------------------------Order Status End--------------------------------------->
+              <td><%= p.totalAmount %></td>
+              <td>
+                <div class="table-data-feature">
+                  <a href="/admin/order-details/<%= p._id %>"><i class="fa-solid fa-pen-to-square"></i></a>
+                  <a href=""><i class="fa-solid fa-circle-minus"></i></a>
+                </div>
+              </td>
+            </tr>
+            <% });%>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-
-
-
-
-
-
-
-
-
-        
-            </div>
-        
-    
-    
+    <!-- END DATA TABLE-->
+  </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

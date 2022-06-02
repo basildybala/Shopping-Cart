@@ -177,5 +177,37 @@ exports.deleteProduct=async (req,res)=>{
         res.status(500).render('page-not-found')
       }
 }
+//USERS ORDER STATUS CHANGE 
+
+exports.orderStatusChange=async (req,res)=>{
+    try {
+        let orderId=req.body.orderId
+        let userStatus=req.body.status
+       await Order.findByIdAndUpdate(orderId,
+            {
+                $set:{
+                    status:userStatus,
+                }
+            })
+        res.status(200).redirect("/admin");
+      } catch (err) {
+        console.log(error);
+        res.status(500).render('page-not-found')
+      }
+}
+//USERS ORDER DETAILS  
+
+exports.orderDetails=async (req,res)=>{
+    try {
+        let orderId=req.params.id
+    
+     let order=await Order.findById(orderId)
+     console.log(order);
+        res.status(200).render("admin/order-details",{order});
+      } catch (err) {
+        console.log(error);
+        res.status(500).render('page-not-found')
+      }
+}
 
 

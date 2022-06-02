@@ -62,19 +62,12 @@ exports.pageRender=async (req,res)=>{
 }
 
 exports.orderSumbit=async (req,res)=>{
-    console.log(req.user.id);
-    
     try {
         let userID=req.user.id
-        // let userCart= await Cart.findOne({user:userID})
-
-        
+        // let userCart= await Cart.findOne({user:userID})     
         let products=await globalFunctions.getItemandTotal(userID).then().catch(e=>{console.log('Erro at User Cart Total Amount and Products code'+e);})
 
-        let totalAmount=await globalFunctions.getTotalAmount(userID).then().catch(e=>{console.log('Erro at User Cart Total Amount code'+e);})
-        
-
-        
+        let totalAmount=await globalFunctions.getTotalAmount(userID).then().catch(e=>{console.log('Erro at User Cart Total Amount code'+e);})  
        
         let userOrder=await new Order ({
             userId :userID,
@@ -120,31 +113,32 @@ exports.orderSumbit=async (req,res)=>{
           
 
             
-        }else if(req.body.payment==='stripe'){
-
-            const session=await stripe.checkout.sessions.create({
-                payment_method_type:['card'],
-                line_items:[
-                    {
-                        price_data:{
-                            currency:'inr',
-                            product_data:{
-                                id:products.cartItems,
-                                
-                            },
-                            unit_amount:totalAmount[0].total*100,
-
-                        },
-                        quantity:products.cartItems
-
-                    }
-                ],
-                mod:"payment",
-                success_url:'${/api/order/order-success}'
-
-            })
-            res.json({id:session.id})
         }
+        // else if(req.body.payment==='stripe'){
+
+        //     const session=await stripe.checkout.sessions.create({
+        //         payment_method_type:['card'],
+        //         line_items:[
+        //             {
+        //                 price_data:{
+        //                     currency:'inr',
+        //                     product_data:{
+        //                         id:products.cartItems,
+                                
+        //                     },
+        //                     unit_amount:totalAmount[0].total*100,
+
+        //                 },
+        //                 quantity:products.cartItems
+
+        //             }
+        //         ],
+        //         mod:"payment",
+        //         success_url:'${/api/order/order-success}'
+
+        //     })
+        //     res.json({id:session.id})
+        // }
 
         
         
@@ -220,6 +214,38 @@ exports.orderSuccess=async (req,res)=>{
     } catch (error) {
         console.log(error);
     }
+
+    
+}
+exports.editOrderGet=async (req,res)=>{
+    try {
+        let orderId=req.params.id
+        let order= await Order.findById(orderId)
+        
+        res.render('user/edit-order',{order})    
+    } catch (error) {
+        console.log(error);
+    }
+
+    
+}
+exports.editOrderPost=async (req,res)=>{
+    try {
+
+        console.log(req.body);
+        console.log(req.params.id)
+        const updatedOrder = await Order.findByIdAndUpdate(
+          req.params.id,
+          {
+            $set: req.body,
+          },
+          { new: true }
+        );
+        console.log(updatedOrder);
+        res.redirect('/api/order/my-orders',)  
+      } catch (err) {
+        res.status(500).json(err);
+      }
 
     
 }
