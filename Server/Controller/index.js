@@ -34,8 +34,10 @@ exports.AllProduct = async (req, res) => {
         
         if(req.query.search){
             let search=req.query.search
-            let AllProducts = await Product.find({title:{$regex:new RegExp('^'+search+'.*','i')}}).then().catch()
-            
+            console.log(search);
+            let AllProducts = await Product.find({title:{$regex:'^Aur'+search}}).then().catch()
+            // let AllProducts = await Product.find({title:{$regex:new RegExp('^'+search+'.*','i')}}).then().catch()
+            console.log(AllProducts);
 
             res.status(200).render('index', { AllProducts,count, })
             return;
