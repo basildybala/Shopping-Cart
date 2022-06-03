@@ -47,6 +47,9 @@ router.post('/order-status',controller.orderStatusChange)
 //ORDER DETAILS
 router.get('/order-details/:id',controller.orderDetails)
 
+//ORDER DELETE
+router.get('/order-delete/:id',controller.orderDelete)
+
 
 
 

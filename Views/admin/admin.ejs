@@ -12,7 +12,7 @@
     background-clip: border-box;
     border: 0 solid rgba(0, 0, 0, 0.125);
     border-radius: 0.75rem;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+    box-shadow: 0 4px 6px 2px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
     margin-right: 10px;
     height: 165px;
   }
@@ -64,9 +64,8 @@
           <ul>
             <li><a href="/admin/all-products">All Products</a></li>
             <li><a href="/admin/add-product">Add Product</a></li>
-            <li><a href="/admin/all-product">Add Category</a></li>
-
-            <li><a href="#">Kids Fashion</a></li>
+            <li><a href="/admin/all-product">Edit Product</a></li>
+            <li><a href="/admin/all-product">Delete Product</a></li>
           </ul>
         </div>
       </div>
@@ -147,10 +146,10 @@
         <div class="heading"><h4>Orders</h4></div>
         <div class="content">
           <ul>
-            <li><a href="/admin/add-product">Add Product</a></li>
-            <li><a href="/admin/all-product">Show All Products</a></li>
+            <li><a href="/admin">Show All Oorders</a></li>
+            <li><a href="/admin">Edit Orders</a></li>
 
-            <li><a href="#">Kids Fashion</a></li>
+            
           </ul>
         </div>
       </div>
@@ -223,7 +222,7 @@
               <td>
                 <div class="table-data-feature">
                   <a href="/admin/order-details/<%= p._id %>"><i class="fa-solid fa-pen-to-square"></i></a>
-                  <a href=""><i class="fa-solid fa-circle-minus"></i></a>
+                  <a href="/admin/order-delete/<%= p._id %>"><i class="fa-solid fa-circle-minus"></i></a>
                 </div>
               </td>
             </tr>

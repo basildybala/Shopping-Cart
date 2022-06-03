@@ -219,3 +219,17 @@ exports.orderDetails = async (req, res) => {
         res.status(500).render("page-not-found");
     }
 };
+//USERS ORDER DETAILS
+
+exports.orderDelete = async (req, res) => {
+    try {
+        let orderId = req.params.id;
+
+        let order = await Order.findByIdAndRemove(orderId);
+        
+        res.status(200).redirect("/admin");
+    } catch (err) {
+        console.log(error);
+        res.status(500).render("page-not-found");
+    }
+};
