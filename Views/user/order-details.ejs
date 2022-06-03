@@ -1,4 +1,9 @@
-<%- include('../layout/adminheader'); -%>
+<%- include('../layout/userheader'); -%>
+
+
+
+
+
 <style>
     .card img {
     width: 151px;
@@ -6,6 +11,18 @@
     margin: auto;
     max-height: 228px;
     object-fit: cover;
+}
+.heading{
+    display: flex;
+    justify-content: space-between;
+}
+.heading i{
+    color: red;
+}
+.heading a{
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
 }
 
 </style>
@@ -55,22 +72,9 @@
     <div class="row">
         <div class="col-md-6">
             <div class="widget wid-categories">
-                <div class="heading"><h4>Order Details</h4></div>
-                <div class="content">
-                  <ul>
-                    <li>Name : <%= order.name %></li>
-                    <li>User Id : <%= order.userId %></li>
-                    <li>Order Id : <%= order.orderShortId %></li>
-                    <li>Total AMount : <%= order.totalAmount %></li>
-                    <li>Status : <%= order.status %></li>
-                    <li>Payment : <%= order.payment %></li>
-                  </ul>
+                <div class="heading"><h4>Order Person Details</h4> <% if(order.status==='Pending') { %> <span><a href="/api/order/edit-order/<%= order._id %>"><i class="fa-solid fa-pencil"></i> Edit Address</a></span>
+                    <% }else{ %> Order <%= order.status%> <% } %>
                 </div>
-              </div>
-        </div>
-        <div class="col-md-6">
-            <div class="widget wid-categories">
-                <div class="heading"><h4>Order Person Details</h4></div>
                 <div class="content">
                   <ul>
                     <li>Name : <%= order.name %></li>
@@ -78,7 +82,25 @@
                     <li>Mobile No : <%= order.mobileno %></li>
                     <li>Pincode : <%= order.pincode %></li>
                     <li>Order Date : <%= order.createdAt %></li>
+                    <li><% if(order.status==='Pending') { %> <span><a href="/api/order/edit-order/<%= order._id %>"><i class="fa-solid fa-pencil"></i> Edit Address</a></span>
+                        <% }else{ %> Order <%= order.status%> You Can't Edit Address <% } %></li>
+                    
+                  </ul>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-6">
+            <div class="widget wid-categories">
+                <div class="heading"><h4>Order Details</h4></div>
+                <div class="content">
+                  <ul>
+                   
+                    <li>User Id : <%= order.userId %></li>
+                    <li>Order Id : <%= order.orderShortId %></li>
+                    <li>Total AMount : <%= order.totalAmount %></li>
+                    <li>Status : <%= order.status %></li>
                     <li>Payment : <%= order.payment %></li>
+                    
 
                   </ul>
                 </div>
@@ -86,14 +108,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
 
 
 

@@ -196,8 +196,8 @@ exports.verifyRazorPay=async (req,res)=>{
 exports.myOrders=async (req,res)=>{
     try {
         let userID=req.user.id
-        let ordersList= await Order.find({userId:userID})
-        console.log(ordersList);
+        let ordersList= await Order.find({userId:userID}).sort({_id:-1})
+        console.log(ordersList[0].products);
         res.render('user/my-orders',{ordersList})    
     } catch (error) {
         console.log(error);
@@ -249,3 +249,15 @@ exports.editOrderPost=async (req,res)=>{
 
     
 }
+exports.orderDetails = async (req, res) => {
+    try {
+        let orderId = req.params.id;
+
+        let order = await Order.findById(orderId);
+        console.log(order);
+        res.status(200).render("user/order-details", { order });
+    } catch (err) {
+        console.log(error);
+        res.status(500).render("page-not-found");
+    }
+};

@@ -1,103 +1,74 @@
 <%- include('../layout/userheader'); -%>
 <style>
-    .order-p{
-        margin-left: 5px;
-    }
-    .total p{
-        font-size: 20px;
-    }
+   .status{
+       color: red;
+   }
 </style>
 
-<h5 class="section-title position-relative text-uppercase my-5 mb-1"><span class="bg-secondary pr-3">My Orders</span></h5>
-<% ordersList.forEach (function (orders){%>
 
-<div class="container-fluid   d-flex  justify-content-center " >
+<!--  -->
+<div class="container-fluid">
+    <div class="row">
+        
     
-    <div class="card card-1 col-lg-12 ">
-      
-        <div class="card-body">
-        
-            <% orders.products.forEach (function (p){%>
-            
-            
-                
-                
-            <div class="row">
-                <div class="col">
-                    <div class="card card-2">
-                        <div class="card-body">
-                            
-                            
-                            <div class="media">
-                                <div class="sq align-self-center "> <img class="img-fluid  my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" src="/public/images/<%= p.proPic[0] %>" width="135" height="135" /> </div>
-                                <div class="media-body my-auto text-right">
-                                    <div class="row  my-auto flex-column flex-md-row">
-                                        <div class="col my-auto"> <h6 class="mb-0"> <%= p.productName %></h6>  </div>
-                                        
-                                        <!-- <div class="col my-auto"> <small>Size : M</small></div> -->
-                                        <div class="col my-auto"> <small>Qty : <%= p.quantity %></small></div>
-                                        <div class="col-auto my-auto"> <small>Price:  <%= p.price %>  </small></div>
-                                        <div class="col my-auto"><h6 class="mb-0">Total: &#8377;<%= p.total %></h6>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                          
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
-            <% });%>
-           
-            <div class="row mt-4">
-                <div class="col row">
-                    
-                    <div class="col-auto"><p class="mb-1 text-dark"><b>Order Details</b></p></div><hr>
-                    <div class="d-flex   "> 
-                        <div class=" "> <p class=""><b>Name :</b></p> </div>
-                        <div class=" "> <p class="order-p"><%= orders.name %></p> </div>
-                    </div>
-                    <div class="d-flex"> 
-                        <div class=""> <p class="mb-1"><b>Addres :</b></p> </div>
-                        <div class=""> <p class="mb-1"><%= orders.address %></p> </div>
-                    </div>
-                    <div class="d-flex"> 
-                        <div class=""> <p class="mb-1"><b>Pincode :</b></p> </div>
-                        <div class=""> <p class="mb-1"><%= orders.pincode %></p> </div>
-                    </div>
-                    <div class="d-flex"> 
-                        <div class=""> <p class="mb-1"><b>Mobile No :</b></p> </div>
-                        <div class=""> <p class="mb-1"><%= orders.mobileno %></p> </div>
-                    </div>
-                    <div class="d-flex"> 
-                        <div class=""> <p class="mb-1"><b>Payment Method :</b></p> </div>
-                        <div class=""> <p class="mb-1"><%= orders.payment %></p> </div>
-                    </div>
-                    <div class="d-flex"> 
-                        <div class=""> <p class="mb-1"><b>Order Date :</b></p> </div>
-                        <div class=""> <p class="mb-1"><%= orders.createdAt %></p> </div>
-                    </div>
-                    <div class="d-flex"> 
-                        <div class=""> <p class="mb-1"><b>Status :</b></p> </div>
-                        <div class=""> <p class="mb-1"><%= orders.status %></p> </div>
-                    </div>
-                    <div class="d-flex" > 
-                        <div class="total" > <p class="mb-1"><b>Total:</b></p> </div>
-                        <div class="total"> <p class="mb-1" >&#8377;<%= orders.totalAmount %></p> </div>
-                    </div>
-                   
-               
-                </div>
-            </div>
-            
-        </div>
-        
+<!-- DATA TABLE-->
+
+<div class="col-lg-12">
+    <div class="heading">
+      <h4 class="">My Orders</h4>
     </div>
+    <div class="table-responsive table-responsive-data2">
+      <table class="table table-data2">
+        <thead>
+          <tr>
+            <th>Products</th>
+            <th>date</th>
+            <th>status</th>
+            <th>Total Amount</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% ordersList.forEach (function (p){%>
+          <tr class="tr-shadow">
+            <div class="img">
+                
+                <td class="">
+                    <% p.products.forEach (function (i){%>
+                    <img class="img-fluid  my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" src="/<%= i.proPic[0] %>" width="50" height="50" />
+                    <% });%>
+                </td>
+                
+            </div>
+            <td><%= p.createdAt %></td>
+            <!-----------------------------Order Status Updation--------------------------------------->
+            <td>
+            
+
+     
+        <span class="status " >
+          <%= p.status %>
+        </span>
+        
+     
+            </td>
+            <!-----------------------------Order Status End--------------------------------------->
+            <td><%= p.totalAmount %></td>
+            <td>
+                <a class="btn btn-primary" href="/api/order/order-details/<%= p._id %>">Check Order</a>
+              <!-- <div class="table-data-feature">order-details
+                <a href="/admin/order-details/<%= p._id %>"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href=""><i class="fa-solid fa-circle-minus"></i></a>
+              </div> -->
+            </td>
+          </tr>
+          <% });%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- END DATA TABLE-->
 </div>
-
-<% });%>
-
+</div>
 <%- include('../layout/userfooter'); -%>

@@ -28,6 +28,9 @@ router.get("/order-success",verifyToken, controller.orderSuccess);
 router.get("/edit-order/:id",verifyToken, controller.editOrderGet);
 router.post("/edit-order/:id",verifyToken, controller.editOrderPost);
 
+//ONE ORDER DETAILS
+router.get("/order-details/:id",verifyToken, controller.orderDetails);
+
 
 
 
