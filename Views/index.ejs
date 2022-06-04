@@ -129,32 +129,7 @@
       <div class="search-nav collapse navbar-collapse justify-content-around">
 
         <h3>Featured Products</h3>
-        <!-- <ul class="navbar-nav mr-auto ">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Sort By
-              </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <form   class="sortForm" action="/" method="GET">
-                <input type="text" name="sortby" value="men" class="d-none">
-                <button type="submit" class="dropdown-item">Men</button>
-              </form>
-              <form class="sortForm" action="/" method="GET">
-                <input type="text" name="sortby" value="women" class="d-none">
-                <button type="submit" class="dropdown-item">Women</button>
-              </form>
-              <form class="sortForm" action="/" method="get" id="priceLow" >
-                <input type="text" name="sortby" value="priceLow" class="d-none">
-                <button type="submit" class="dropdown-item"  >Lowest Price</button>
-              </form>
-              <form class="sortForm" action="/" method="GET">
-                <input type="text" name="sortby" value="priceHigh" class="d-none">
-                <button type="submit" class="dropdown-item">Highest Price</button>
-              </form>
-              <a href="/" href class="dropdown-item">Reset</a>
-            </div>
-          </li>
-        </ul> -->
+      
         <div class="">
           <form action="/" method="GET" class="input-group">
             <input type="text" class="form-control" type="text" name="search" placeholder="Search Products..." aria-label="Search">
@@ -169,18 +144,7 @@
     </div>
   </nav>
 
-
-
-
-
-
-
-
-
-
-
-
-
+<!---------------------------------------------------PRODUCT CATEGORIES----------------------------------------------->
 
     <div class="product-items">
     <div class="container py-5">
@@ -191,17 +155,19 @@
                     <div class="content">
                         <ul>
                             <li><form class="sortForm" action="/" method="GET">
-                                <input type="text" name="sortby" value="women" class="d-none">
+                                <input type="text" name="category" value="women" class="d-none">
                                 <button type="submit" class="dropdown-item">Women Fashion</button>
                               </form></li>
                             <li><form   class="sortForm" action="/" method="GET">
-                                <input type="text" name="sortby" value="men" class="d-none">
+                                <input type="text" name="category" value="men" class="d-none">
                                 <button type="submit" class="dropdown-item">Men Fashion</button>
                               </form>
                             </li>
-                            <li><a href="#">Kids Fashion</a></li>
-                            <li><a href="#">New Fashion</a></li>
-                            <li><a href="#">Hot Fashion</a></li>
+                            <li><form   class="sortForm" action="/" method="GET">
+                                <input type="text" name="category" value="kids" class="d-none">
+                                <button type="submit" class="dropdown-item">Kids Fashion</button>
+                              </form>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -222,9 +188,7 @@
                                     <button type="submit" class="dropdown-item">Highest Price</button>
                                   </form>
                             </li>
-                            <li><a href="#">Kids Fashion</a></li>
-                            <li><a href="#">New Fashion</a></li>
-                            <li><a href="#">Hot Fashion</a></li>
+
                         </ul>
                     </div>
                 </div>
@@ -233,16 +197,10 @@
                 
                
             </div>
+  <!---------------------------------------------------PRODUCTS----------------------------------------------->          
              <div class="col-lg-9">  
         <div class="row"> 
            
-
-
-
-
-
-
-
 
         <% AllProducts.forEach (function (p){%>
    <div class="col-md-3">

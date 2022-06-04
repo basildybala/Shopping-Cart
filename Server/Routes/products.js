@@ -33,9 +33,9 @@ const controller=require('../Controller/product');
 router.get("/find/:id",controller.GetOneProduct);
 
 
-router.post("delete/:id", verifyTokenAndAdmin,controller.DeleteProduct);
+// router.post("delete/:id", verifyTokenAndAdmin,controller.DeleteProduct);
 
-router.get("/",controller.AllProduct);
+// router.get("/",controller.AllProduct);
 
 // router.post("/create", verifyTokenAndAdmin,upload.single('productPictures'),(req,res)=>{
 //   res.send('added')

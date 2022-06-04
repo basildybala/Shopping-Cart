@@ -1,12 +1,12 @@
 const Product = require("../models/Product");
 const Cart = require("../models/Cart");
-const cartController = require('../Controller/cart')
+// const cartController = require('../Controller/cart')
 const jwt = require('jsonwebtoken');
-const {
-    verifyToken,
-    verifyTokenAndAuthorization,
-    verifyTokenAndAdmin,
-} = require("../Routes/verifyToken");
+// const {
+//     verifyToken,
+//     verifyTokenAndAuthorization,
+//     verifyTokenAndAdmin,
+// } = require("../Routes/verifyToken");
 
 exports.AllProduct = async (req, res) => {
       
@@ -16,6 +16,7 @@ exports.AllProduct = async (req, res) => {
         let count=null;
 
         if (token) {
+            //IF USER LOGGED IN THEN DISPLAY CART COUNT
             let cartCount = null
             let token = req.cookies.token;
             jwt.verify(token, process.env.JWT_SEC, (err, user) => {
@@ -31,11 +32,11 @@ exports.AllProduct = async (req, res) => {
             }
                      
         }
-        
+        //PRODUCTS SEARCH AND SORT BY QUERY
         if(req.query.search){
             let search=req.query.search
             console.log(search);
-            let AllProducts = await Product.find({title:{$regex:'^Aur'+search}}).then().catch()
+            let AllProducts = await Product.find({title:{$regex:search,$options:"$i"}}).then().catch()
             // let AllProducts = await Product.find({title:{$regex:new RegExp('^'+search+'.*','i')}}).then().catch()
             console.log(AllProducts);
 
@@ -53,14 +54,14 @@ exports.AllProduct = async (req, res) => {
             
             res.status(200).render('index', { AllProducts,count, })
             return ;
-        }else if(req.query.sortby === "men"){
+        }else if(req.query.category === "men"){
             let qCategory='men'
             let AllProducts = await Product.find({categories: {
                 $in: 'Men',
               },})
             res.status(200).render('index', { AllProducts,count, })
             return ;
-        }else if(req.query.sortby === "women"){
+        }else if(req.query.category  === "women"){
             
             let AllProducts = await Product.find({categories: {
                 $in: 'WoMen',
@@ -69,10 +70,7 @@ exports.AllProduct = async (req, res) => {
             res.status(200).render('index', { AllProducts,count, })
             return ;
         }
-        // console.log(count);
-        // let query=req.query.search
-        // console.log(query);
-        // let user=true
+
         
         let AllProducts = await Product.find().then().catch()
         res.status(200).render('index', { AllProducts,count, })
@@ -84,51 +82,4 @@ exports.AllProduct = async (req, res) => {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-// exports.AllProduct = async (req, res) => {
-      
-
-//     try {
-//         let token = req.cookies.token
-//         let count=null;
-
-//         if (token) {
-//             let cartCount = null
-//             let token = req.cookies.token;
-//             jwt.verify(token, process.env.JWT_SEC, (err, user) => {
-//                 if (err) res.status(403).json("Token is not valid!");
-//                 req.user = user;
-//             });
-//             user = req.user.id
-//             let carts = await Cart.findOne({ "user": user }).then().catch(e => {
-//                 console.log(e);
-//             })
-//             if (carts) {
-//                 count = await carts.cartItems.length    
-//             }
-            
-            
-//         }
-//         console.log(count);
-
-//         // let user=true
-//         let AllProducts = await Product.find().then().catch()
-//         res.status(200).render('index', { AllProducts,count, })
-
-
-
-//     } catch (err) {
-//         res.status(500).redirect('/err')
-//         console.log(err);
-//     }
-// }
 

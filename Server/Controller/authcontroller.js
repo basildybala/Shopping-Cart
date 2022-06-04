@@ -46,7 +46,7 @@ exports.UserLogin=async (req,res)=>{
           process.env.JWT_SEC,
           {expiresIn:"3d"}
       );
-
+      //Cookiees CreATe    
       res.cookie("token",token,{
         httpOnly:true,
         
@@ -113,7 +113,7 @@ exports.UserRegistrationPage=async (req,res)=>{
 
   }
 }
-
+//USER LOGOUT
 exports.UserLogout=(req,res)=>{
   res.cookie('token','',{maxAge:1})
   res.redirect('/')
