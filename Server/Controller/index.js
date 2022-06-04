@@ -64,7 +64,7 @@ exports.AllProduct = async (req, res) => {
         }else if(req.query.category  === "women"){
             
             let AllProducts = await Product.find({categories: {
-                $in: 'WoMen',
+                $in: 'Women',
               },})
             
             res.status(200).render('index', { AllProducts,count, })

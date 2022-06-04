@@ -22,7 +22,6 @@
     "nodemon": "^2.0.16",
     "razorpay": "^2.8.1",
     "shortid": "^2.2.16",
-    "slugify": "^1.6.5",
-    "stripe": "^9.5.0"
+    "slugify": "^1.6.5"
   }
 }
