@@ -58,9 +58,6 @@ app.get('*',(req,res,next)=>{
     res.render('page-not-found')
 })
 
-// app.get('*',userExist)
-
-
 
 app.listen(process.env.PORT,()=>console.log('Sever Running 5000'))
 
