@@ -40,26 +40,26 @@ exports.AllProduct = async (req, res) => {
             // let AllProducts = await Product.find({title:{$regex:new RegExp('^'+search+'.*','i')}}).then().catch()
             console.log(AllProducts);
 
-            res.status(200).render('index', { AllProducts,count, })
+            res.status(200).render('index.ejs', { AllProducts,count, })
             return;
         }else if(req.query.sortby === "priceLow"){
             let AllProducts = await Product.find({}).sort({price: 1,})
             
             // res.json({products:AllProducts})
-            res.status(200).render('index', { AllProducts,count, })
+            res.status(200).render('index.ejs', { AllProducts,count, })
             return ;
         }else if(req.query.sortby === "priceHigh"){
             
             let AllProducts = await Product.find({}).sort({price: -1,})
             
-            res.status(200).render('index', { AllProducts,count, })
+            res.status(200).render('index.ejs', { AllProducts,count, })
             return ;
         }else if(req.query.category === "men"){
             let qCategory='men'
             let AllProducts = await Product.find({categories: {
                 $in: 'Men',
               },})
-            res.status(200).render('index', { AllProducts,count, })
+            res.status(200).render('index.ejs', { AllProducts,count, })
             return ;
         }else if(req.query.category  === "women"){
             
@@ -67,13 +67,13 @@ exports.AllProduct = async (req, res) => {
                 $in: 'Women',
               },})
             
-            res.status(200).render('index', { AllProducts,count, })
+            res.status(200).render('index.ejs', { AllProducts,count, })
             return ;
         }
 
         
         let AllProducts = await Product.find().then().catch()
-        res.status(200).render('index', { AllProducts,count, })
+        res.status(200).render('index.ejs', { AllProducts,count, })
 
 
     } catch (err) {
