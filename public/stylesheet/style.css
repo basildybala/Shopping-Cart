@@ -444,3 +444,16 @@ font-weight: 700;
     object-fit: cover;
 }
 
+@media only screen and (max-width: 600px) {
+    .nav-b .text-decoration-none{
+        width: 100%;
+        display: flex !important;
+        justify-content:center ;
+        margin-top: 1%;
+    }
+    .search-nav h3{
+        margin: 0;
+        font-size: 16px;
+    }
+  }
+

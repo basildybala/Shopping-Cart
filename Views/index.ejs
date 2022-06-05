@@ -32,7 +32,7 @@
 
 <div class="nav-bar ">
     <div class="nav-a nav-b">
-        <a href="/" class="text-decoration-none d-block lg-4 ">
+        <a href="/" class="text-decoration-none  lg-4 ">
             <span class="h1 text-uppercase text-light bg-primary px-2">Multi</span>
             <span class="h1 text-uppercase text-light bg-info px-2 ml-n1">Shop</span>
         </a>
@@ -168,27 +168,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="widget wid-categories">
-                    <div class="heading"><h4>SORT BY</h4></div>
-                    <div class="content">
-                        
-                        <ul>
-                            <li>
-                                <form class="sortForm" action="/" method="get" id="priceLow" >
-                                    <input type="text" name="sortby" value="priceLow" class="d-none">
-                                    <button type="submit" class="dropdown-item"  >Lowest Price</button>
-                                  </form>
-                            </li>
-                            <li>
-                                <form class="sortForm" action="/" method="GET">
-                                    <input type="text" name="sortby" value="priceHigh" class="d-none">
-                                    <button type="submit" class="dropdown-item">Highest Price</button>
-                                  </form>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
+                
                 
                 
                 
@@ -200,7 +180,7 @@
            
 
         <% AllProducts.forEach (function (p){%>
-   <div class="col-md-3">
+   <div class="col-md-6 col-lg-4 ">
             <div class="card mb-4 product-wap rounded-0 listing listing-radius listing-success">
                 
                 <div class="card position-relative" >
@@ -226,6 +206,29 @@
         </div>        
         <% });%>
             </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="widget wid-categories">
+            <div class="heading"><h4>SORT BY</h4></div>
+            <div class="content">
+                
+                <ul>
+                    <li>
+                        <form class="sortForm" action="/" method="get" id="priceLow" >
+                            <input type="text" name="sortby" value="priceLow" class="d-none">
+                            <button type="submit" class="dropdown-item"  >Lowest Price</button>
+                          </form>
+                    </li>
+                    <li>
+                        <form class="sortForm" action="/" method="GET">
+                            <input type="text" name="sortby" value="priceHigh" class="d-none">
+                            <button type="submit" class="dropdown-item">Highest Price</button>
+                          </form>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
     </div>
