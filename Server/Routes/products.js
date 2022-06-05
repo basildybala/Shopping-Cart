@@ -7,7 +7,7 @@ const {
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
-const Product = require("../models/Product");
+const Product = require("../Models/Product");
 const controller=require('../Controller/product');
 // const multer=require('multer');
 

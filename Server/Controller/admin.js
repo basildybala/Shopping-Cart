@@ -1,48 +1,9 @@
-const Product = require("../models/Product");
-const User = require("../models/User");
-const Order = require("../models/Order");
+const Product = require("../Models/Product");
+const User = require("../Models/User");
+const Order = require("../Models/Order");
 const slugify = require("slugify");
 
-//ADMIN HOME PAGE
-// exports.homePage = async (req, res) => {
-//     try {
 
-//         const date = new Date();
-//         const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
-//         const thisMonth = new Date(date.setMonth(date.getMonth() - 1));
-//         //Users JOIN Count
-//         let lastMonthCount = await User.aggregate([
-//             { $match: { createdAt: { $gte: lastMonth } } },
-//         ]);
-//         // let MonthCount = await User.aggregate([
-//         //     { $match: { createdAt: { $gte: thisMonth } } },
-//         // ]);
-//         let userLcount = lastMonthCount.length;
-//         let totalCountUsers = await User.count();
-//         //Total Sales Amount Calculation
-//         let order= await Order.count()
-
-//             const income = await Order.aggregate([
-//                 { $project: { sales: "$totalAmount" } },
-//                 { $group: { _id: null, total: { $sum: "$sales" } } },
-//             ]);
-//             let totalIncome = income[0].total;
-
-//         let orders = await Order.find().sort({ _id: -1 });
-//         let totalSales = orders.length;
-
-//         res.render("admin/admin", {
-//             totalCountUsers,
-//             userLcount,
-//             totalIncome,
-//             totalSales,
-//             orders,
-//         });
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).render("page-not-found");
-//     }
-// };
 exports.homePage = async (req, res) => {
   try {
     const date = new Date();

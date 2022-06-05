@@ -1,6 +1,6 @@
 // const Product = require("../models/Product");
-const Order = require("../models/Order");
-const Cart = require("../models/Cart");
+const Order = require("../Models/Order");
+const Cart = require("../Models/Cart");
 // const mongoose = require("mongoose");
 const globalFunctions = require("./global");
 const shortid = require("shortid");

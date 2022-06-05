@@ -1,4 +1,4 @@
-const Category = require("../models/Category");
+const Category = require("../Models/Category");
 const slugify=require('slugify');
 const shortid=require('shortid');
 

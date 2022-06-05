@@ -5,7 +5,7 @@ const {
   verifyTokenAndAdmin,
   verifyToken,
 } = require("./verifyToken");
-const Product = require("../models/Product");
+const Product = require("../Models/Product");
 const controller=require('../Controller/cart')
 
 //CART COLLECTION

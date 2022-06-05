@@ -1,5 +1,5 @@
-const Product = require("../models/Product");
-const Cart = require("../models/Cart");
+const Product = require("../Models/Product");
+const Cart = require("../Models/Cart");
 const jwt = require("jsonwebtoken");
 const { default: mongoose } = require("mongoose");
 const res = require("express/lib/response");

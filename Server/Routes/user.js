@@ -5,7 +5,7 @@ const {
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
-const User = require("../models/User");
+const User = require("../Models/User");
 
 //UPDATE
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {

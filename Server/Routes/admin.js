@@ -25,30 +25,30 @@ const upload=multer({storage:storage})
 
 
 //Admin Home Page Route
-router.get('/',controller.homePage)
+router.get('/',verifyTokenAndAdmin,controller.homePage)
 
 //Products Route
-router.get('/all-products',controller.allProducts)
+router.get('/all-products',verifyTokenAndAdmin,controller.allProducts)
 
 //Add product
-router.get('/add-product',controller.addProduct)
-router.post('/add-product',verifyToken,upload.array('productPictures'),controller.addProductPost)
+router.get('/add-product',verifyTokenAndAdmin,controller.addProduct)
+router.post('/add-product',verifyTokenAndAdmin,upload.array('productPictures'),controller.addProductPost)
 
 //Edit Product
-router.get('/edit-product/:id',controller.editProduct)
-router.post('/edit-product/:id',upload.array('productPictures'),controller.editProductPost)
+router.get('/edit-product/:id',verifyTokenAndAdmin,controller.editProduct)
+router.post('/edit-product/:id',verifyTokenAndAdmin,upload.array('productPictures'),controller.editProductPost)
 
 //Delete Product
-router.get('/delete-product/:id',controller.deleteProduct)
+router.get('/delete-product/:id',verifyTokenAndAdmin,controller.deleteProduct)
 
 //USERS ORDER STATUS CHANGE
-router.post('/order-status',controller.orderStatusChange)
+router.post('/order-status',verifyTokenAndAdmin,controller.orderStatusChange)
 
 //ORDER DETAILS
-router.get('/order-details/:id',controller.orderDetails)
+router.get('/order-details/:id',verifyTokenAndAdmin,controller.orderDetails)
 
 //ORDER DELETE
-router.get('/order-delete/:id',controller.orderDelete)
+router.get('/order-delete/:id',verifyTokenAndAdmin,controller.orderDelete)
 
 
 

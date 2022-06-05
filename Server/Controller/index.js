@@ -1,5 +1,5 @@
-const Product = require("../models/Product");
-const Cart = require("../models/Cart");
+const Product = require("../Models/Product");
+const Cart = require("../Models/Cart");
 // const cartController = require('../Controller/cart')
 const jwt = require('jsonwebtoken');
 // const {
