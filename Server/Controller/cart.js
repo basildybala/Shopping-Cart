@@ -160,6 +160,7 @@ exports.getCart = async (req, res) => {
           .catch((e) => {
             console.log(e);
           });
+          console.log(MyCart);
         //FIND CART TOTAL AMOUNT SUM IN GLOBAL CONTROLLER  
         let total = await globalFunctions
           .getTotalAmount(userID)
